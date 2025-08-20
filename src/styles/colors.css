@@ -1,0 +1,25 @@
+/* Paleta de colores SISTEMAS NFC */
+:root {
+  /* Colores principales de la paleta */
+  --color-dark-blue: #034159;
+  --color-teal-dark: #025951;
+  --color-teal-medium: #02735E;
+  --color-green-medium: #038C3E;
+  --color-green-bright: #0CF25D;
+  
+  /* Colores adicionales para el diseño */
+  --color-white: #ffffff;
+  --color-gray-light: #f8f9fa;
+  --color-gray-medium: #6c757d;
+  --color-gray-dark: #343a40;
+  --color-black: #000000;
+  
+  /* Transparencias */
+  --bg-transparent: rgba(3, 65, 89, 0.1);
+  --bg-semi-transparent: rgba(3, 65, 89, 0.8);
+  
+  /* Gradientes */
+  --gradient-primary: linear-gradient(135deg, var(--color-dark-blue), var(--color-teal-medium));
+  --gradient-accent: linear-gradient(135deg, var(--color-green-medium), var(--color-green-bright));
+  --gradient-secondary: linear-gradient(var(--color-green-medium) 5%, var(--color-teal-medium) 25%, var(--color-dark-blue) 100%);
+}

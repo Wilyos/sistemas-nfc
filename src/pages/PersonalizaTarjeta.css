@@ -1,0 +1,212 @@
+/* Botón OK de edición de texto */
+.ok-btn {
+  background: #10B981;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  font-weight: 700;
+  font-size: 1rem;
+  padding: 0.2rem 1.1rem;
+  margin-left: 4px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.ok-btn:hover {
+  background: #0e8c6c;
+}
+.cancel-btn {
+  background: #eee;
+  color: #444;
+  border: none;
+  border-radius: 4px;
+  font-weight: 700;
+  font-size: 1rem;
+  padding: 0.2rem 1.1rem;
+  margin-left: 4px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.cancel-btn:hover {
+  background: #ccc;
+}
+.personaliza-section {
+  padding: 3rem 1rem;
+  background-image: var(--gradient-secondary);
+  min-height: 100vh;
+}
+
+.personaliza-title {
+  text-align: center;
+  font-size: 2.2rem;
+  margin-bottom: 2rem;
+  color: var(--color-white);
+  letter-spacing: 1px;
+}
+
+.personaliza-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2.5rem;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.card {
+  background: trasparent;
+  border-radius: 1rem;
+  border: 2px solid var(--color-white);
+  box-shadow: 0 4px 24px rgba(3,65,89,0.08);
+  padding: 2rem 2.5rem;
+  margin-bottom: 1rem;
+}
+
+.personaliza-form {
+  min-width: 320px;
+  max-width: 350px;
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+}
+
+.personaliza-label {
+  display: flex;
+  flex-direction: column;
+  font-weight: 500;
+  color: var(--color-white);
+  font-size: 1rem;
+  gap: 0.3rem;
+}
+
+.personaliza-input,
+.personaliza-input-file {
+  padding: 0.6rem 1rem;
+  border: 1px solid var(--color-gray-medium);
+  border-radius: 0.5rem;
+  font-size: 1rem;
+  background: var(--color-gray-light);
+  margin-top: 0.2rem;
+  transition: border 0.2s;
+  color: var(--color-dark-blue);
+}
+
+.personaliza-input:focus {
+  border: 1.5px solid var(--color-green-medium);
+  outline: none;
+}
+
+.personaliza-input-color {
+  width: 40px;
+  height: 40px;
+  border: none;
+  background: none;
+  margin-top: 0.2rem;
+  cursor: pointer;
+}
+
+.tarjeta-preview {
+  min-width: 320px;
+  max-width: 350px;
+  min-height: 200px;
+  
+  
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.7rem;
+  background: transparent;
+  box-shadow: 0 4px 24px rgba(3,65,89,0.06);
+  transition: border-color 0.2s;
+}
+
+.tarjeta-preview h3 {
+  font-size: 1.4rem;
+  font-weight: 700;
+  margin: 0;
+  text-shadow: 0 1px 2px rgba(3,65,89,0.07);
+}
+
+.tarjeta-preview p {
+  font-size: 1.05rem;
+  margin: 0;
+  color: var(--color-dark-blue);
+}
+
+.personaliza-actions {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: flex-end; /* Cambiado de center a flex-end para alinear los botones abajo */
+  margin: 32px 0;
+  gap: 48px;
+  flex-wrap: wrap;
+}
+
+.personaliza-enviar-btn {
+  padding: 0.7em 2.2em;
+  font-size: 1.1rem;
+  font-weight: bold;
+  color: #fff;
+  background: linear-gradient(90deg,#10B981 60%,#0e7c4d 100%);
+  border: none;
+  border-radius: 2em;
+  box-shadow: 0 2px 8px #10B98155;
+  cursor: pointer;
+  letter-spacing: 1px;
+  transition: background 0.2s;
+}
+
+.personaliza-enviar-btn:hover {
+  background: linear-gradient(90deg,#0e7c4d 60%,#10B981 100%);
+}
+
+.asesoria-diseno-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end; /* Alinea el botón al fondo */
+}
+
+.asesoria-diseno-label {
+  font-weight: 500;
+  color: var(--color-white);
+  margin-bottom: 0; /* Elimina el margen inferior para que el botón suba */
+  font-size: 1rem;
+  text-align: center;
+  margin-left: 0;
+  padding-bottom: 8px; /* Opcional: ajusta la separación entre texto y botón */
+}
+
+.asesoria-diseno-btn {
+  padding: 0.7em 2.2em;
+  font-size: 1.1rem;
+  font-weight: bold;
+  color: #fff;
+  background: linear-gradient(90deg,#10B981 60%,#0e7c4d 100%);
+  border: none;
+  border-radius: 2em;
+  box-shadow: 0 2px 8px #2563eb55;
+  cursor: pointer;
+  letter-spacing: 1px;
+  transition: background 0.2s;
+  margin-top: 0;
+}
+
+.asesoria-diseno-btn:hover {
+  background: linear-gradient(90deg,#0e7c4d 60%,#10B981 100%);
+}
+
+@media (max-width: 800px) {
+  .personaliza-container {
+    flex-direction: column;
+    align-items: center;
+  }
+  .card {
+    width: 100%;
+    max-width: 400px;
+  }
+  .personaliza-actions {
+    flex-direction: column;
+    gap: 24px;
+  }
+}

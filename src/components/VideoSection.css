@@ -1,0 +1,394 @@
+@import '../styles/colors.css';
+
+.video-section {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  padding: 4rem 0;
+}
+
+/* Fondo de la sección */
+.video-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -2;
+}
+
+.bg-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.video-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(3, 65, 89, 0.8);
+  z-index: -1;
+}
+
+/* Contenedor principal */
+.video-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2rem;
+  text-align: center;
+  position: relative;
+  z-index: 10;
+}
+
+/* Texto superior */
+.video-text-top {
+  margin-bottom: 3rem;
+}
+
+.video-text-top h2 {
+  font-size: 1.8rem;
+  font-weight: 400;
+  line-height: 1.4;
+  color: var(--color-white);
+  margin: 0;
+}
+
+/* Contenedor del reproductor de video */
+.video-player-container {
+  margin: 3rem 0;
+  display: flex;
+  justify-content: center;
+}
+
+.video-frame {
+  position: relative;
+  width: 100%;
+  max-width: 600px;
+  aspect-ratio: 16/9;
+  background: linear-gradient(
+    135deg,
+    var(--color-green-bright),
+    var(--color-white),
+    var(--color-green-medium),
+    var(--color-teal-medium),
+    var(--color-dark-blue),
+    var(--color-teal-dark)
+  );
+  border-radius: 23px;
+  padding: 6px;
+  box-shadow: 0 0 30px rgba(12, 242, 93, 0.3);
+}
+
+.video-content {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  border-radius: 20px;
+  overflow: hidden;
+  background: #f0f0f0;
+}
+
+.video-placeholder {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, #666, #999);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.video-placeholder:hover {
+  background: linear-gradient(135deg, #777, #aaa);
+}
+
+.play-button {
+  color: var(--color-green-bright);
+  background: rgba(0, 0, 0, 0.6);
+  border-radius: 50%;
+  width: 80px;
+  height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+}
+
+.play-button:hover {
+  background: rgba(0, 0, 0, 0.8);
+  transform: scale(1.1);
+}
+
+.play-button svg {
+  margin-left: 4px; /* Pequeño ajuste visual */
+}
+
+/* Logo en la esquina del video */
+.video-logo {
+  position: absolute;
+  bottom: 15px;
+  right: 15px;
+  background: var(--color-green-medium);
+  color: var(--color-dark-blue);
+  width: 40px;
+  height: 40px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  font-size: 1.2rem;
+}
+
+.video-logo img {
+  width: 80%;
+  height: auto;
+  object-fit: contain;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Texto inferior */
+.video-text-bottom {
+  margin: 3rem 0;
+}
+
+.video-text-bottom p {
+  font-size: 1.1rem;
+  line-height: 1.5;
+  color: var(--color-white);
+  margin: 0;
+}
+
+/* Botón de personalización */
+.video-cta {
+  margin-top: 3rem;
+}
+
+.personalization-button {
+  background-image: linear-gradient(
+    var(--color-green-medium) 5%,
+    var(--color-teal-medium) 25%,
+    var(--color-dark-blue) 100%
+  );
+  color: var(--color-white);
+  border: 3px solid var(--color-green-bright);
+  padding: 0.7rem 2.2rem; /* Más alto y ancho */
+  border-radius: 40px;
+  font-family: "Syncopate", sans-serif;
+  font-weight: 700;
+  font-size: 1.35rem;
+  line-height: 1.1;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  min-width: unset;
+  width: auto;
+  display: inline-block;
+  text-align: center;
+  box-sizing: border-box;
+}
+
+.personalization-button:hover {
+  background: var(--color-green-medium);
+  color: var(--color-white);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(12, 242, 93, 0.3);
+}
+
+/* Elementos decorativos */
+.decorative-elements {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Grillas tecnológicas */
+.tech-grid {
+  position: absolute;
+  width: 80px;
+  height: 80px;
+  background-image: 
+    linear-gradient(var(--color-green-bright) 1px, transparent 1px),
+    linear-gradient(90deg, var(--color-green-bright) 1px, transparent 1px);
+  background-size: 10px 10px;
+  opacity: 0.3;
+}
+
+.grid-left {
+  top: 20%;
+  left: 5%;
+  transform: rotate(-15deg);
+}
+
+.grid-right {
+  bottom: 20%;
+  right: 5%;
+  transform: rotate(15deg);
+}
+
+/* Círculos decorativos */
+.circle-element {
+  position: absolute;
+  border: 2px solid var(--color-green-bright);
+  border-radius: 50%;
+  opacity: 0.4;
+}
+
+.circle-top {
+  width: 60px;
+  height: 60px;
+  top: 15%;
+  right: 15%;
+}
+
+.circle-bottom {
+  width: 40px;
+  height: 40px;
+  bottom: 15%;
+  left: 15%;
+}
+
+/* Líneas decorativas */
+.line-element {
+  position: absolute;
+  background: var(--color-green-bright);
+  opacity: 0.3;
+}
+
+.line-left {
+  width: 80px;
+  height: 2px;
+  top: 30%;
+  left: 8%;
+  transform: rotate(-45deg);
+}
+
+.line-right {
+  width: 60px;
+  height: 2px;
+  bottom: 30%;
+  right: 8%;
+  transform: rotate(45deg);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .video-section {
+    padding: 2rem 0;
+  }
+  
+  .video-container {
+    padding: 0 1rem;
+  }
+  
+  .video-text-top h2 {
+    font-size: 1.4rem;
+    line-height: 1.3;
+  }
+  
+  .video-text-top h2 br {
+    display: none;
+  }
+  
+  .video-text-bottom p {
+    font-size: 1rem;
+    line-height: 1.4;
+  }
+  
+  .video-text-bottom p br {
+    display: none;
+  }
+  
+  .video-frame {
+    max-width: 100%;
+    border-radius: 18px;
+    padding: 3px;
+  }
+  
+  .video-content {
+    border-radius: 15px;
+  }
+  
+  .play-button {
+    width: 60px;
+    height: 60px;
+  }
+  
+  .play-button svg {
+    width: 40px;
+    height: 40px;
+  }
+  
+  .video-logo {
+    width: 30px;
+    height: 30px;
+    font-size: 1rem;
+    bottom: 10px;
+    right: 10px;
+  }
+  
+  .personalization-button {
+    font-size: 0.9rem;
+    padding: 1rem 2rem;
+  }
+  
+  /* Elementos decorativos más pequeños en móvil */
+  .tech-grid {
+    width: 50px;
+    height: 50px;
+    background-size: 8px 8px;
+  }
+  
+  .circle-top {
+    width: 40px;
+    height: 40px;
+  }
+  
+  .circle-bottom {
+    width: 30px;
+    height: 30px;
+  }
+  
+  .line-left,
+  .line-right {
+    width: 40px;
+  }
+}
+
+@media (max-width: 480px) {
+  .video-text-top h2 {
+    font-size: 1.2rem;
+  }
+  
+  .video-text-bottom p {
+    font-size: 0.9rem;
+  }
+  
+  .video-frame {
+    border-radius: 15px;
+    padding: 2px;
+  }
+  
+  .video-content {
+    border-radius: 12px;
+  }
+  
+  .personalization-button {
+    font-size: 0.8rem;
+    padding: 0.8rem 1.5rem;
+  }
+}

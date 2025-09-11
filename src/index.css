@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Syncopate:wght@400;700&display=swap');
 
 * {
@@ -8,7 +8,10 @@
 }
 
 :root {
-  font-family: 'Inter', system-ui, Avenir, Helvetica, Arial, sans-serif;
+  /* Fuente principal única de toda la web: cambia aquí para actualizar en todo el sitio */
+  --font-main: 'Montserrat', system-ui, Avenir, Helvetica, Arial, sans-serif;
+
+  font-family: var(--font-main);
   line-height: 1.5;
   font-weight: 400;
   font-synthesis: none;
@@ -27,6 +30,31 @@ body {
   min-width: 320px;
   min-height: 100vh;
   overflow-x: hidden;
+}
+
+/* Override tipográfico global: asegura una sola fuente en todo el sitio */
+body,
+button,
+input,
+select,
+textarea,
+a,
+p,
+span,
+small,
+strong,
+em,
+label,
+li,
+ul,
+ol,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-main) !important;
 }
 
 

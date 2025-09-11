@@ -208,7 +208,7 @@ function PersonalizaTarjeta() {
         <button className="personaliza-enviar-btn" onClick={handleExportarPDF} type="button">
           Guardar PDF
         </button>
-        <div className="asesoria-diseno-container">
+      <div className="asesoria-diseno-container">
           <span className="asesoria-diseno-label">
             ¿buscas algo más personalizado?
           </span>

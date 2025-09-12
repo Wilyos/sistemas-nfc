@@ -1,0 +1,86 @@
+.features-section {
+  padding: 4rem 0;
+  background: #111;
+}
+.features-container { width: min(1100px, 92%); margin: 0 auto; }
+.features-header { text-align: center; color: #fff; margin-bottom: 2rem; }
+.features-header h2 { font-size: clamp(1.6rem, 3vw, 2.2rem); margin: 0; }
+.features-header p { opacity: .9; margin-top: .5rem; }
+
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 1rem;
+}
+.feature-card {
+  position: relative;
+  border: 1px solid rgba(255,255,255,.06);
+  border-radius: 16px;
+  height: 300px;
+  overflow: hidden;
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  transition: transform .35s cubic-bezier(.2,.8,.2,1);
+  will-change: transform;
+  transition: transform .35s cubic-bezier(.2,.8,.2,1), box-shadow .35s ease;
+  box-shadow: 0 10px 30px rgba(0,0,0,.15);
+}
+}
+
+/* Parallax suave del icono en dispositivos con hover */
+@media (hover: hover) and (pointer: fine) {
+  .feature-card:hover .feature-icon {
+    transform: translate(3px, -3px) scale(1.06);
+  }
+}
+
+.feature-card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(0,0,0,0.45) 0%, rgba(0,0,0,0.25) 40%, rgba(0,0,0,0.55) 100%);
+  pointer-events: none;
+}
+
+.feature-bg {
+  position: absolute;
+  inset: 0;
+  background-image: var(--bg);
+  background-size: 100% 100%;
+  background-position: center;
+  background-repeat: no-repeat;
+  transform: scale(1);
+  transition: transform .6s cubic-bezier(.2,.8,.2,1) .05s;
+}
+
+.feature-card:hover {
+  transform: translateY(-4px) scale(1.03);
+  box-shadow: 0 16px 40px rgba(0,0,0,.25);
+}
+
+.feature-card:hover .feature-bg {
+  transform: scale(1.08);
+  transition-delay: .12s;
+}
+
+.feature-icon {
+  width: 52px;
+  height: 52px;
+  object-fit: contain;
+  position: absolute;
+  left: 14px;
+  bottom: 14px;
+  z-index: 1;
+  filter: drop-shadow(0 2px 4px rgba(0,0,0,.6));
+}
+
+@media (max-width: 900px) {
+  .features-grid { grid-template-columns: repeat(2, 1fr); }
+  .feature-card { height: 260px; }
+}
+@media (max-width: 520px) {
+  .features-grid { grid-template-columns: 1fr; }
+  .feature-card { height: 240px; }
+  .feature-icon { width: 44px; height: 44px; }
+}

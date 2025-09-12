@@ -18,7 +18,6 @@ const Navbar = () => {
           {/* Selector de idioma */}
           <div className="language-selector">
             <div className="language-flag">
-                <span className="flag-text syncopate-bold">ESP</span>
                 <img src={colombiaFlag} alt="Colombia" className="flag-image" />
             </div>
           </div>

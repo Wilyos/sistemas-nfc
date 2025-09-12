@@ -67,7 +67,7 @@ const FooterSection = () => {
           {contactCards.map((card) => (
             <div key={card.id} className={`contact-card ${card.id}-card`}>
               <div className="card-header">
-                <h3 className="card-title">{card.title}</h3>
+                <h3 className="footer-card-title">{card.title}</h3>
                 <div className="icon-container">
                   {card.icon}
                 </div>

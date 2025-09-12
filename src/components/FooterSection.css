@@ -32,7 +32,7 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(3, 65, 89, 0.9);
+  background: rgba(0, 0, 0, 0.9);
   z-index: -1;
 }
 
@@ -63,7 +63,7 @@
 }
 
 .highlight-text {
-  color: var(--color-green-bright);
+  color: #ffffff;
   font-weight: 600;
 }
 
@@ -80,7 +80,7 @@
   backdrop-filter: blur(15px);
   border-radius: 20px;
   padding: 1.2rem;
-  border: 3px solid var(--color-green-bright);
+  border: 1px solid rgba(0,0,0,.1);
   box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
   transition: all 0.3s ease;
   display: flex;
@@ -88,10 +88,7 @@
   min-height: 250px;
 }
 
-.contact-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 20px 40px rgba(12, 242, 93, 0.3);
-}
+.contact-card:hover { transform: translateY(-5px); box-shadow: 0 20px 40px rgba(0,0,0,0.25); }
 
 /* Header de tarjetas */
 .card-header {
@@ -105,7 +102,7 @@
 .icon-container {
   width: 50px;
   height: 50px;
-  background-image: var(--gradient-accent);
+  background: #000;
   border-radius: 50%;
   display: flex;
   align-items: center;
@@ -119,7 +116,7 @@
   color: var(--color-white);
 }
 
-.card-title {
+.footer-card-title {
   color: var(--color-black);
   font-family: "inter", sans-serif;
   font-size: 1.5rem;
@@ -139,7 +136,7 @@
 }
 
 .card-description {
-  color: var(--color-dark-blue);
+  color: #111;
   font-size: 0.95rem;
   line-height: 1.5;
   margin: 0 0 1rem 0;
@@ -147,7 +144,7 @@
 }
 
 .card-description .highlight-text {
-  color: var(--color-green-bright);
+  color: #000;
   font-weight: 600;
 }
 
@@ -162,7 +159,7 @@
 .qr-placeholder {
   width: 80px;
   height: 80px;
-  background: var(--color-dark-blue);
+  background: #000;
   border-radius: 10px;
   display: flex;
   align-items: center;
@@ -186,7 +183,7 @@
 }
 
 .qr-or {
-  color: var(--color-dark-blue);
+  color: #111;
   font-size: 1.2rem;
   font-weight: 600;
   margin: 0.2rem 0 0 0;
@@ -197,30 +194,8 @@
   margin-top: auto;
 }
 
-.contact-button {
-  background-image: var(--gradient-secondary);
-  color: var(--color-white);
-  border: 2px solid var(--color-green-bright);
-  padding: 0.2rem 0.2rem;
-  border-radius: 50px;
-  font-family: "Syncopate", sans-serif;
-  font-size: 1rem;
-  font-weight: 700;
-  letter-spacing: 0.5px;
-  text-decoration: none;
-  display: block;
-  text-align: center;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  box-shadow: 0 5px 15px rgba(12, 242, 93, 0.4);
-}
-
-.contact-button:hover {
-  background-image: var(--gradient-accent);
-  color: var(--color-white);
-  transform: translateY(-2px);
-  box-shadow: 0 8px 20px rgba(12, 242, 93, 0.6);
-}
+.contact-button { background: #000; color: #fff; border: 1px solid #000; padding: 0.8rem 1rem; border-radius: 999px; font-family: "Syncopate", sans-serif; font-size: 0.95rem; font-weight: 800; letter-spacing: 0.4px; text-decoration: none; display: block; text-align: center; cursor: pointer; transition: all 0.25s ease; box-shadow: 0 5px 15px rgba(0,0,0,0.35); }
+.contact-button:hover { background: #111; transform: translateY(-2px); box-shadow: 0 8px 20px rgba(0,0,0,0.45); }
 
 .map-section iframe {
   width: 100%;
@@ -261,8 +236,8 @@
   width: 100px;
   height: 100px;
   background-image: 
-    linear-gradient(var(--color-green-bright) 1px, transparent 1px),
-    linear-gradient(90deg, var(--color-green-bright) 1px, transparent 1px);
+    linear-gradient(#fff 1px, transparent 1px),
+    linear-gradient(90deg, #fff 1px, transparent 1px);
   background-size: 12px 12px;
   opacity: 0.1;
 }
@@ -282,7 +257,7 @@
 /* Círculos decorativos */
 .circle-element {
   position: absolute;
-  border: 2px solid var(--color-green-bright);
+  border: 2px solid #fff;
   border-radius: 50%;
   opacity: 0.12;
 }
@@ -304,7 +279,7 @@
 /* Líneas decorativas */
 .line-element {
   position: absolute;
-  background: var(--color-green-bright);
+  background: #fff;
   opacity: 0.12;
 }
 
@@ -330,7 +305,7 @@
   width: 180px;
   height: 180px;
   background-image: 
-    radial-gradient(circle at 3px 3px, var(--color-green-bright) 1px, transparent 1px);
+    radial-gradient(circle at 3px 3px, #fff 1px, transparent 1px);
   background-size: 18px 18px;
   opacity: 0.05;
   border-radius: 50%;
@@ -365,7 +340,7 @@
     min-height: 350px;
   }
   
-  .card-title {
+  .footer-card-title {
     font-size: 1rem;
   }
   
@@ -409,7 +384,7 @@
     gap: 0.5rem;
   }
   
-  .card-title {
+  .footer-card-title {
     text-align: center;
     font-size: 0.95rem;
   }

@@ -1,71 +1,44 @@
-/* Botón OK de edición de texto */
-.ok-btn {
-  background: #10B981;
-  color: #fff;
-  border: none;
-  border-radius: 4px;
-  font-weight: 700;
-  font-size: 1rem;
-  padding: 0.2rem 1.1rem;
-  margin-left: 4px;
-  cursor: pointer;
-  transition: background 0.2s;
-}
-.ok-btn:hover {
-  background: #0e8c6c;
-}
-.cancel-btn {
-  background: #eee;
-  color: #444;
-  border: none;
-  border-radius: 4px;
-  font-weight: 700;
-  font-size: 1rem;
-  padding: 0.2rem 1.1rem;
-  margin-left: 4px;
-  cursor: pointer;
-  transition: background 0.2s;
-}
-.cancel-btn:hover {
-  background: #ccc;
-}
+/* PersonalizaTarjeta - estilos organizados y consistentes */
+
 .personaliza-section {
-  padding: 3rem 1rem;
+  padding: 3.5rem 1rem;
   background-image: var(--gradient-secondary);
   min-height: 100vh;
 }
 
 .personaliza-title {
   text-align: center;
-  font-size: 2.2rem;
+  font-size: clamp(1.6rem, 3vw, 2.2rem);
   margin-bottom: 2rem;
   color: var(--color-white);
-  letter-spacing: 1px;
+  letter-spacing: .5px;
 }
 
 .personaliza-container {
   display: flex;
-  flex-wrap: wrap;
-  gap: 2.5rem;
+  gap: 2rem;
   justify-content: center;
-  align-items: flex-start;
+  align-items: stretch;
+  flex-direction: column;
 }
 
 .card {
-  background: trasparent;
-  border-radius: 1rem;
-  border: 2px solid var(--color-white);
-  box-shadow: 0 4px 24px rgba(3,65,89,0.08);
-  padding: 2rem 2.5rem;
-  margin-bottom: 1rem;
+  background: rgba(255,255,255,0.05);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-radius: 16px;
+  border: 1px solid rgba(255,255,255,0.12);
+  box-shadow: 0 8px 30px rgba(0,0,0,0.25);
+  padding: 1.5rem 1.75rem;
 }
 
 .personaliza-form {
+  width: 100%;
   min-width: 320px;
-  max-width: 350px;
+  max-width: none;
   display: flex;
   flex-direction: column;
-  gap: 1.2rem;
+  gap: 1rem;
 }
 
 .personaliza-label {
@@ -73,25 +46,30 @@
   flex-direction: column;
   font-weight: 500;
   color: var(--color-white);
-  font-size: 1rem;
+  font-size: .95rem;
   gap: 0.3rem;
 }
 
 .personaliza-input,
 .personaliza-input-file {
-  padding: 0.6rem 1rem;
-  border: 1px solid var(--color-gray-medium);
-  border-radius: 0.5rem;
+  width: 100%;
+  padding: 0.65rem 0.9rem;
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 10px;
   font-size: 1rem;
-  background: var(--color-gray-light);
+  background: rgba(255,255,255,0.06);
+  color: var(--color-white);
   margin-top: 0.2rem;
-  transition: border 0.2s;
-  color: var(--color-dark-blue);
+  transition: border-color .2s, box-shadow .2s, background .2s;
 }
 
+.personaliza-input::placeholder { color: rgba(255,255,255,0.55); }
+.personaliza-input-file { color: rgba(255,255,255,0.85); }
+
 .personaliza-input:focus {
-  border: 1.5px solid var(--color-green-medium);
+  border-color: var(--color-accent-green);
   outline: none;
+  box-shadow: 0 0 0 4px var(--color-accent-green-weak);
 }
 
 .personaliza-input-color {
@@ -106,107 +84,178 @@
 .tarjeta-preview {
   min-width: 320px;
   max-width: 350px;
-  min-height: 200px;
-  
-  
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   gap: 0.7rem;
   background: transparent;
-  box-shadow: 0 4px 24px rgba(3,65,89,0.06);
-  transition: border-color 0.2s;
 }
 
 .tarjeta-preview h3 {
-  font-size: 1.4rem;
+  font-size: 1.2rem;
   font-weight: 700;
   margin: 0;
-  text-shadow: 0 1px 2px rgba(3,65,89,0.07);
+  color: var(--color-white);
+  text-shadow: 0 2px 6px rgba(0,0,0,0.35);
 }
 
 .tarjeta-preview p {
-  font-size: 1.05rem;
+  font-size: 1rem;
   margin: 0;
-  color: var(--color-dark-blue);
+  color: #e5e7eb;
+}
+
+.tarjeta-card {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+/* Filas nuevas del layout */
+.tarjetas-top-row {
+  display: flex;
+  gap: 1.5rem;
+  justify-content: center;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  width: 100%;
+}
+
+.tarjetas-top-row > .tarjeta-preview {
+  flex: 1 1 50%;
+  max-width: 600px;
+  min-width: 320px;
+}
+
+.tarjetas-bottom-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+  width: 100%;
+  align-items: start;
+}
+
+/* Mitades: formulario y fondos al 50% */
+.tarjetas-bottom-row .personaliza-form { width: 100%; min-width: 0; }
+.tarjetas-bottom-row .card { width: 100%; }
+
+.lado-label {
+  position: absolute;
+  top: 8px;
+  left: 10px;
+  background: rgba(0,0,0,0.55);
+  color: #fff;
+  font-size: .8rem;
+  padding: 2px 8px;
+  border-radius: 999px;
+  z-index: 1;
+}
+
+.fondos-card {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 10px;
+  min-width: 0;
+  max-width: none;
+}
+
+.fondos-title {
+  font-weight: 800;
+  color: var(--color-white);
+  text-align: center;
+  margin-bottom: 8px;
+}
+
+.fondos-subtitle {
+  font-weight: 700;
+  font-size: 0.95rem;
+  color: var(--color-accent-green);
+  margin: 6px 0 6px 4px;
+}
+
+.fondos-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+/* Oscurece sutilmente cuando hay imagen de fondo para mejorar el contraste del texto */
+.tarjeta-card[style*="url("]::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(0,0,0,0.28) 0%, rgba(0,0,0,0.2) 40%, rgba(0,0,0,0.35) 100%);
+  border-radius: 12px;
+  pointer-events: none;
 }
 
 .personaliza-actions {
+  margin-top: 2rem;
   display: flex;
-  flex-direction: row;
+  align-items: center;
   justify-content: center;
-  align-items: flex-end; /* Cambiado de center a flex-end para alinear los botones abajo */
-  margin: 32px 0;
-  gap: 48px;
+  gap: 1rem 1.25rem;
   flex-wrap: wrap;
 }
 
 .personaliza-enviar-btn {
-  padding: 0.7em 2.2em;
-  font-size: 1.1rem;
-  font-weight: bold;
-  color: #fff;
-  background: linear-gradient(90deg,#10B981 60%,#0e7c4d 100%);
-  border: none;
-  border-radius: 2em;
-  box-shadow: 0 2px 8px #10B98155;
+  padding: 0.75em 1.6em;
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: #000;
+  background: #fff;
+  border: 1px solid rgba(255,255,255,0.2);
+  border-radius: 999px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.2);
   cursor: pointer;
-  letter-spacing: 1px;
-  transition: background 0.2s;
+  letter-spacing: .4px;
+  transition: box-shadow .2s ease, transform .2s ease;
 }
 
 .personaliza-enviar-btn:hover {
-  background: linear-gradient(90deg,#0e7c4d 60%,#10B981 100%);
+  box-shadow: 0 0 0 6px var(--color-accent-green-weak), 0 12px 36px rgba(0,0,0,0.28);
+  transform: translateY(-1px);
 }
 
 .asesoria-diseno-container {
   display: flex;
-  flex-direction: column;
   align-items: center;
-  justify-content: flex-end; /* Alinea el botón al fondo */
+  gap: 0.75rem;
 }
 
 .asesoria-diseno-label {
-  font-weight: 500;
-  color: var(--color-white);
-  margin-bottom: 0; /* Elimina el margen inferior para que el botón suba */
-  font-size: 1rem;
-  text-align: center;
-  margin-left: 0;
-  padding-bottom: 8px; /* Opcional: ajusta la separación entre texto y botón */
+  color: rgba(255,255,255,0.8);
+  font-size: .95rem;
 }
 
 .asesoria-diseno-btn {
-  padding: 0.7em 2.2em;
-  font-size: 1.1rem;
-  font-weight: bold;
-  color: #fff;
-  background: linear-gradient(90deg,#10B981 60%,#0e7c4d 100%);
-  border: none;
-  border-radius: 2em;
-  box-shadow: 0 2px 8px #2563eb55;
+  padding: 0.7em 1.6em;
+  font-size: 1rem;
+  font-weight: 700;
+  color: #000;
+  background: #fff;
+  border: 1px solid rgba(255,255,255,0.2);
+  border-radius: 999px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.18);
   cursor: pointer;
-  letter-spacing: 1px;
-  transition: background 0.2s;
-  margin-top: 0;
+  letter-spacing: .4px;
+  transition: box-shadow .2s ease, transform .2s ease;
 }
 
 .asesoria-diseno-btn:hover {
-  background: linear-gradient(90deg,#0e7c4d 60%,#10B981 100%);
+  box-shadow: 0 0 0 6px var(--color-accent-green-weak), 0 12px 36px rgba(0,0,0,0.26);
+  transform: translateY(-1px);
 }
 
-@media (max-width: 800px) {
-  .personaliza-container {
-    flex-direction: column;
-    align-items: center;
-  }
-  .card {
-    width: 100%;
-    max-width: 400px;
-  }
-  .personaliza-actions {
-    flex-direction: column;
-    gap: 24px;
-  }
+/* Responsive */
+@media (max-width: 980px) {
+  .personaliza-container { gap: 1.25rem; }
+  .personaliza-form, .tarjeta-preview { max-width: 100%; }
+  .tarjetas-bottom-row { grid-template-columns: 1fr; }
+  .tarjetas-top-row > .tarjeta-preview { flex: 1 1 100%; max-width: 100%; }
 }

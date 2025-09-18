@@ -2,6 +2,7 @@ import React from 'react'
 import Navbar from './components/Navbar'
 import VideoHero from './components/VideoHero'
 import FeaturesSection from './components/FeaturesSection'
+import SplitFeatureSection from './components/SplitFeatureSection'
 import TestimonialsSection from './components/TestimonialsSection'
 // import VideoSection from './components/VideoSection'
 // import ServicesSection from './components/ServicesSection'
@@ -19,6 +20,7 @@ function App() {
   <VideoHero />
     <SectionSeparator from="#0a0a0a" to="#111111" />
   <FeaturesSection />
+  <SplitFeatureSection />
   <SectionSeparator from="#111111" to="#0d0d0d" />
   <SectorsSection />
   <SectionSeparator from="#0d0d0d" to="#121212" />

@@ -1,80 +1,107 @@
+
+import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import './ServicesSection.css';
-import bgServices from '../assets/background/bg-services.jpg';
-import iconoAsesoria from '../assets/img/icono-asesoria.jpg';
-import iconoPersonaliza from '../assets/img/icono-personaliza.jpg';
-import iconoTraza from '../assets/img/icono-traza.jpg';
+import banner from '../assets/banners/bannerinfo.png';
+import banner2 from '../assets/banners/bannerinfo2.png';
+
+
+const banners =[
+  {image: banner,
+   title: 'En Sistemas NFC, potenciamos la forma en que te conectas con clientes y equipos, transformando el contacto convencional en experiencias inteligentes',
+   description: 'Ya sea B2B o B2C, ayudamos a empresas, marcas y profesionales a integrar tecnología NFC para compartir información de manera rápida, efectiva y siempre actualizada.'
+  },
+  {image: banner2,
+   title: 'En Sistemas NFC, potenciamos la forma en que te conectas con clientes y equipos, transformando el contacto convencional en experiencias inteligentes',
+   description: 'Ya sea B2B o B2C, ayudamos a empresas, marcas y profesionales a integrar tecnología NFC para compartir información de manera rápida, efectiva y siempre actualizada.'
+  }
+]
+
 
 const ServicesSection = () => {
+  const [current, setCurrent] = useState(0);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrent((prev) => (prev + 1) % banners.length);
+    }, 5000);
+    return () => clearInterval(interval);
+  }, []);
+
   return (
     <section className="services-section">
-      <div className="services-background">
-        <img src={bgServices} alt="Background Services" className="bg-image" />
-        <div className="services-overlay"></div>
-      </div>
-      
-      <div className="services-container">
-        {/* Texto principal */}
+      <div className="services-top">
         <div className="services-header">
-          <h2>
-            Nuestros servicios se enfocan en <span className="highlight-text">tres pilares esenciales</span>
-            <br />
-            para transformar tu forma de conectar con clientes
-            <br />
-            y equipos: <span className="services-pillars">asesoría, personalización y trazabilidad.</span>
-          </h2>
+          <p className="services-description">
+            Nuestros servicios se enfocan en tres pilares esenciales para transformar tu forma de conectar con clientes y equipos, <br />
+            <span className="services-highlight">asesoría, personalización y trazabilidad</span>
+          </p>
         </div>
-
-        {/* Contenedor de servicios */}
-        <div className="services-grid">
-          {/* Servicio 1: Asesoría Estratégica */}
-          <div className="service-item">
-            <div className="service-icon">
-              <img src={iconoAsesoria} alt="Asesoría Estratégica" />
+        <div className="services-pillars">
+          <div className="pillar">
+            <div className="pillar-icon">
+              {/* Icono de asesoría (ejemplo: chat) */}
+              <img src="/img/icono1.png" alt="chat" />
             </div>
-            <div className="service-content">
-              <h3>Asesoría</h3>
-              <h4>Estratégica</h4>
-            </div>
+            <div className="pillar-title">Asesoría Estratégica</div>
           </div>
-
-          {/* Servicio 2: Personalización Total */}
-          <div className="service-item">
-            <div className="service-icon">
-              <img src={iconoPersonaliza} alt="Personalización Total" />
+          <div className="pillar">
+            <div className="pillar-icon">
+              {/* Icono de personalización (ejemplo: lápiz) */}
+              <img src="/img/icono2.png" alt="lapiz" />
             </div>
-            <div className="service-content">
-              <h3>Personalización</h3>
-              <h4>Total</h4>
-            </div>
+            <div className="pillar-title">Personalización Total</div>
           </div>
-
-          {/* Servicio 3: Trazabilidad y Optimización */}
-          <div className="service-item">
-            <div className="service-icon">
-              <img src={iconoTraza} alt="Trazabilidad y Optimización" />
+          <div className="pillar">
+            <div className="pillar-icon">
+              {/* Icono de trazabilidad (ejemplo: tracking) */}
+              <img src="/img/icono3.png" alt="tracking" />
             </div>
-            <div className="service-content">
-              <h3>Trazabilidad y</h3>
-              <h4>Optimización</h4>
-            </div>
+            <div className="pillar-title">Trazabilidad y Optimización</div>
           </div>
-        </div>
-
-        {/* Elementos decorativos */}
-        <div className="decorative-elements">
-          <div className="tech-pattern pattern-left"></div>
-          <div className="tech-pattern pattern-right"></div>
-          <div className="circle-decoration circle-top-left"></div>
-          <div className="circle-decoration circle-top-right"></div>
-          <div className="circle-decoration circle-bottom-left"></div>
-          <div className="cross-element cross-top"></div>
-          <div className="cross-element cross-bottom"></div>
-          <div className="cross-element cross-left"></div>
-          <div className="cross-element cross-right"></div>
-          <div className="line-decoration line-top"></div>
-          <div className="line-decoration line-bottom"></div>
         </div>
       </div>
+
+      <div className='video-container'>
+        <video
+          src="/video/vidinfo.mp4"
+          autoPlay
+          loop
+          muted
+          playsInline
+          
+        >
+          Tu navegador no soporta el video.
+        </video>
+      </div>
+
+      <div  className="banner-container" >
+        <div  className="banner">
+          <img
+            src={banners[current].image}
+            alt={banners[current].title}
+            className='banner-image'
+          />
+          {/* Overlay de texto */}
+          <div className="banner-overlay">
+            <h2 >{banners[current].title}</h2>
+            <p>{banners[current].description}</p>
+            <Link to="/personalizaTarjeta" className="banner-link">
+              PERSONALÍZALAS ¡AQUÍ!
+            </Link>
+          </div>
+          {/* Dots de slide */}
+          <div className="banner-dots" >
+            {banners.map((_, idx) => (
+              <span
+                key={idx}
+                className={`banner-dot${idx === current ? ' active' : ''}`}
+              />
+            ))}
+          </div>
+        </div>
+      </div>
+
     </section>
   );
 };

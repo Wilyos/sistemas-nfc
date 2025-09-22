@@ -1,135 +1,88 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import banner1 from '../assets/banners/bannerinfo.png';
+import banner2 from '../assets/banners/bannerinfo2.png';
+import banner3 from '../assets/banners/sad.png';
+import banner4 from '../assets/banners/sad3.png';
 import './SectorsSection.css';
-import bgSix from '../assets/background/bg-six.jpg';
-import iconoModa from '../assets/img/fashion.png';
-import education from '../assets/img/education.png';
-import gastronomia from '../assets/img/gastronomia.png'
-import commerce from '../assets/img/commerce.png';
-import bussiness from '../assets/img/maletin.png';
-import networking from '../assets/img/networking.png';
-import hospital from '../assets/img/hospital.png';
-import contenido from '../assets/img/contenido.png';
 
+const banners = [
+  { src: banner1, alt: 'banner1' },
+  { src: banner2, alt: 'banner2' },
+  { src: banner3, alt: 'banner3' },
+  { src: banner4, alt: 'banner4' },
+];
 
 const SectorsSection = () => {
-  const sectors = [
-    {
-      id: 'moda',
-      title: 'Moda',
-      icon: (
-        <img src={iconoModa} alt="Icono de Moda" className='sector-icon'/>
-      )
-    },
-    {
-      id: 'educacion',
-      title: 'Educación',
-      icon: (
-        <img src={education} alt="Icono de Educación" className='sector-icon'/>
-      )
-    },
-    {
-      id: 'gastronomia',
-      title: 'Gastronomía',
-      icon: (
-        <img src={gastronomia} alt="Icono de Gastronomía" className='sector-icon'/>
-      )
-    },
-    {
-      id: 'comercio',
-      title: 'Comercio',
-      icon: (
-        <img src={commerce} alt="Icono de Comercio" className='sector-icon'/>
-      )
-    },
-    {
-      id: 'servicios',
-      title: 'Servicios profesionales',
-      icon: (
-       <img src={bussiness} alt="Icono de Servicios Profesionales" className='sector-icon'/>
-      )
-    },
-    {
-      id: 'networking',
-      title: 'Networking',
-      icon: (
-        <img src={networking} alt="Icono de Networking" className='sector-icon'/>
-      )
-    },
-    {
-      id: 'hospitalario',
-      title: 'Sector hospitalario',
-      icon: (
-        <img src={hospital} alt="Icono de Sector Hospitalario" className='sector-icon'/>
-      )
-    },
-    {
-      id: 'creadores',
-      title: 'Creadores de contenido',
-      icon: (
-         <img src={contenido} alt="Icono de Creadores de Contenido" className='sector-icon'/>
-      )
-    }
-  ];
+  const [current, setCurrent] = useState(0);
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth <= 900);
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+
+  useEffect(() => {
+    if (!isMobile) return;
+    const interval = setInterval(() => {
+      setCurrent((prev) => (prev + 1) % banners.length);
+    }, 4000);
+    return () => clearInterval(interval);
+  }, [isMobile]);
 
   return (
     <section className="sectors-section">
-      {/* Fondo de la sección */}
-      <div className="sectors-background">
-        <img src={bgSix} alt="Background" className="bg-image" />
-        <div className="sectors-overlay"></div>
-      </div>
-
-      {/* Contenedor principal */}
-      <div className="sectors-container">
-        {/* Título principal */}
-        <div className="section-header">
-          <h2 className="main-title">
-            CONECTA, COMPARTE Y CRECE CON 
-            <span className="highlight-text"> SISTEMAS NFC</span>
-          </h2>
-        </div>
-
-        {/* Descripción */}
-        <div className="description-section">
-          <p className="description-text">
-            En <strong>SISTEMAS NFC</strong> ofrecemos soluciones digitales para emprendedores, marcas personales y empresas que 
-            buscan proyectarse con tecnología inteligente.
-          </p>
-          
-          <p className="features-text">
-            Comparte tu información con una tarjeta personalizada, lista para <strong>enviar por QR, enlace o tecnología NFC</strong>. 
-            Incluye acceso directo a <strong>whatsapp, redes sociales, portafolio digital, ubicación y más</strong>.
-          </p>
-          
-          <p className="final-text">
-            Todo con tu imagen de marca, editable en tiempo real y sin necesidad de imprimir.
+      <div className="sector-content">
+        <div className="sector-card">
+          <h2 className="sector-title">TU CARTA DE <br /> PRESENTACIÓN DIGITAL</h2>
+          <p className="sector-desc">
+            <i>
+              Obtén tu tarjeta NFC y accede a una landing page (pagina de aterrizaje) personalizada donde podrás mostrar tu portafolio, compartir tu información de contacto y conectar de forma directa con tus clientes. Una forma moderna y profesional de causar una gran primera impresión.
+            </i>
           </p>
         </div>
-
-        {/* Grid de sectores */}
-        <div className="sectors-grid">
-          {sectors.map((sector) => (
-            <div key={sector.id} className="sector-item">
-              <div className="sector-icon-container">
-                {sector.icon}
-              </div>
-              <h3 className="sector-title">{sector.title}</h3>
+        {isMobile ? (
+          <div className="sector-banners-carousel">
+            {/* Imagen previa (peek) */}
+            <img
+              src={banners[(current - 1 + banners.length) % banners.length].src}
+              alt={banners[(current - 1 + banners.length) % banners.length].alt}
+              className="sector-banner-carousel-img prev"
+              style={{ left: 0 }}
+            />
+            {/* Imagen actual */}
+            <img
+              src={banners[current].src}
+              alt={banners[current].alt}
+              className="sector-banner-carousel-img"
+              style={{ zIndex: 2 }}
+            />
+            {/* Imagen siguiente (peek) */}
+            <img
+              src={banners[(current + 1) % banners.length].src}
+              alt={banners[(current + 1) % banners.length].alt}
+              className="sector-banner-carousel-img next"
+              style={{ right: 0 }}
+            />
+            <div className="sector-carousel-dots">
+              {banners.map((_, idx) => (
+                <span
+                  key={idx}
+                  className={`sector-carousel-dot${idx === current ? ' active' : ''}`}
+                  onClick={() => setCurrent(idx)}
+                />
+              ))}
             </div>
-          ))}
-        </div>
-      </div>
-
-      {/* Elementos decorativos */}
-      <div className="decorative-elements">
-        <div className="tech-grid grid-top-left"></div>
-        <div className="tech-grid grid-bottom-right"></div>
-        <div className="circle-element circle-small"></div>
-        <div className="circle-element circle-medium"></div>
-        <div className="circle-element circle-large"></div>
-        <div className="line-element line-diagonal-1"></div>
-        <div className="line-element line-diagonal-2"></div>
-        <div className="pattern-overlay pattern-left"></div>
-        <div className="pattern-overlay pattern-right"></div>
+          </div>
+        ) : (
+          <div className="sector-banners">
+            <img src={banner1} alt="banner1" className="sector-banner banner-top" />
+            <img src={banner2} alt="banner2" className="sector-banner banner-mid" />
+            <img src={banner3} alt="banner3" className="sector-banner banner-bot" />
+            <img src={banner4} alt="banner4" className="sector-banner banner-front" />
+          </div>
+        )}
       </div>
     </section>
   );

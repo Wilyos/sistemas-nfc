@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+import { useState, useRef } from 'react';
 import html2canvas from 'html2canvas';
 import jsPDF from 'jspdf';
 import { FaXTwitter, FaFacebookF, FaInstagram } from "react-icons/fa6";
@@ -12,7 +12,6 @@ const plantillasPorCategoria = [
   {
     categoria: 'Corporativas',
     plantillas: [
-      { nombre: 'C1', anverso: '/plantillas/corporativas/C1.png', reverso: '/plantillas/corporativas/C2.png' },
       { nombre: 'Corporativa 1', anverso: '/plantillas/corporativas/c-frente1.png', reverso: '/plantillas/corporativas/corporativa2.png' },
     ]
   },
@@ -34,44 +33,78 @@ const plantillasPorCategoria = [
 ];
 
 function PersonalizaTarjeta() {
-  // Estados principales
-  const [empresa, setEmpresa] = useState('');
-  const [nombre, setNombre] = useState('');
-  const [cargo, setCargo] = useState('');
-  const [contacto, setContacto] = useState({ email: '', telefono: '', direccion: '', twitter: '', facebook: '', instagram: '', nombre: '', cargo: '', qr: '' });
-  const [color, setColor] = useState('#black');
-  // Estados separados para anverso y reverso
-  const [plantillaAnverso, setPlantillaAnverso] = useState('');
-  const [plantillaReverso, setPlantillaReverso] = useState('');
-  const canvasRef = useRef(null);
-  // Refs para las vistas previas
+  // --- Estados ---
+  const [empresa, setEmpresa] = useState("");
+  const [nombre, setNombre] = useState("");
+  const [cargo, setCargo] = useState("");
+  const [contacto, setContacto] = useState({});
+  const [plantillaAnverso, setPlantillaAnverso] = useState(null);
+  const [plantillaReverso, setPlantillaReverso] = useState(null);
+  const [color, setColor] = useState("#000000");
+  const [enviando, setEnviando] = useState(false);
+  const [mensajeEnvio, setMensajeEnvio] = useState("");
+
+  // --- Referencias ---
   const anversoRef = useRef(null);
   const reversoRef = useRef(null);
-  // Función para exportar ambas vistas previas a PDF
-  const handleExportarPDF = async () => {
-    const pdf = new jsPDF({ orientation: 'landscape', unit: 'px', format: [380, 220] });
-    // Captura anverso
-    if (anversoRef.current) {
-      const canvasAnverso = await html2canvas(anversoRef.current, { scale: 3, useCORS: true });
-      const imgAnverso = canvasAnverso.toDataURL('image/png');
-      pdf.addImage(imgAnverso, 'PNG', 10, 10, 340, 190);
-    }
-    // Nueva página para reverso
-    pdf.addPage([380, 220], 'landscape');
-    if (reversoRef.current) {
-      const canvasReverso = await html2canvas(reversoRef.current, { scale: 3, useCORS: true });
-      const imgReverso = canvasReverso.toDataURL('image/png');
-      pdf.addImage(imgReverso, 'PNG', 10, 10, 340, 190);
-    }
-    pdf.save('tarjeta-personalizada.pdf');
-  };
 
-  // Al seleccionar una plantilla de anverso, asigna automáticamente el reverso correspondiente
+  // --- Selección de plantilla ---
   const handleSeleccionarPlantilla = (anverso, reverso) => {
     setPlantillaAnverso(anverso);
     setPlantillaReverso(reverso);
   };
 
+  // --- Exportar a PDF ---
+  const handleExportarPDF = async () => {
+    setEnviando(true);
+    setMensajeEnvio('');
+    try {
+      const pdf = new jsPDF({ orientation: 'landscape', unit: 'px', format: [380, 220] });
+
+      // Captura anverso
+      if (anversoRef.current) {
+        const canvasAnverso = await html2canvas(anversoRef.current, { scale: 3, useCORS: true });
+        const imgAnverso = canvasAnverso.toDataURL('image/png');
+        pdf.addImage(imgAnverso, 'PNG', 10, 10, 340, 190);
+      }
+
+      // Captura reverso
+      pdf.addPage([380, 220], 'landscape');
+      if (reversoRef.current) {
+        const canvasReverso = await html2canvas(reversoRef.current, { scale: 3, useCORS: true });
+        const imgReverso = canvasReverso.toDataURL('image/png');
+        pdf.addImage(imgReverso, 'PNG', 10, 10, 340, 190);
+      }
+
+      // Generar PDF como blob
+      const pdfBlob = pdf.output('blob');
+
+      // Enviar PDF y datos al backend
+      const formData = new FormData();
+      formData.append('pdf', pdfBlob, 'tarjeta-personalizada.pdf');
+      formData.append('nombre', nombre);
+      formData.append('empresa', empresa);
+      formData.append('mensaje', 'Cotización generada desde la landing page NFC');
+
+      const response = await fetch('https://TU_DOMINIO.vercel.app/api/send-pdf', {
+        method: 'POST',
+        body: formData
+      });
+
+      const result = await response.json();
+      if (result.success) {
+        setMensajeEnvio('¡PDF enviado correctamente!');
+      } else {
+        setMensajeEnvio('Error al enviar el PDF. Intenta nuevamente.');
+      }
+    } catch (err) {
+      console.error(err);
+      setMensajeEnvio('Error al enviar el PDF. Intenta nuevamente.');
+    }
+    setEnviando(false);
+  };
+
+  // --- Subir logo ---
   const handleLogoChange = (e) => {
     const file = e.target.files[0];
     if (file) {
@@ -113,7 +146,7 @@ function PersonalizaTarjeta() {
           <div style={{fontWeight:'bold', color:'var(--color-white)', marginBottom:8}}>Fondos prediseñados</div>
           {plantillasPorCategoria.map(cat => (
             <div key={cat.categoria} style={{marginBottom:12}}>
-              <div style={{fontWeight:'bold', fontSize:15, marginBottom:4}}>{cat.categoria}</div>
+              <div style={{fontWeight:'bold', fontSize:15, marginBottom:4, color:'var(--color-white)'}}>{cat.categoria}</div>
               <div style={{display:'flex', gap:8}}>
                 {cat.plantillas.map((p,i) => (
                   <img
@@ -205,10 +238,13 @@ function PersonalizaTarjeta() {
         </div>
       </div>
       <div className="personaliza-actions">
-        <button className="personaliza-enviar-btn" onClick={handleExportarPDF} type="button">
-          Guardar PDF
+        <button className="personaliza-enviar-btn" onClick={handleExportarPDF} type="button" disabled={enviando}>
+          {enviando ? 'Enviando PDF...' : 'Guardar y enviar PDF'}
         </button>
-      <div className="asesoria-diseno-container">
+        {mensajeEnvio && (
+          <div style={{marginTop:10, color: mensajeEnvio.includes('Error') ? 'red' : 'green', fontWeight:'bold'}}>{mensajeEnvio}</div>
+        )}
+        <div className="asesoria-diseno-container">
           <span className="asesoria-diseno-label">
             ¿buscas algo más personalizado?
           </span>
@@ -224,7 +260,7 @@ function PersonalizaTarjeta() {
       </div>
     </section>
   );
-}
+};
 
 export default PersonalizaTarjeta;
        

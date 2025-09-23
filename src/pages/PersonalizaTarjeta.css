@@ -1,4 +1,6 @@
 /* Botón OK de edición de texto */
+
+
 .ok-btn {
   background: #10B981;
   color: #fff;
@@ -31,7 +33,7 @@
 }
 .personaliza-section {
   padding: 3rem 1rem;
-  background-image: var(--gradient-secondary);
+  background: var(--color-black);
   min-height: 100vh;
 }
 
@@ -120,6 +122,7 @@
 }
 
 .tarjeta-preview h3 {
+  color: var(--color-white);
   font-size: 1.4rem;
   font-weight: 700;
   margin: 0;

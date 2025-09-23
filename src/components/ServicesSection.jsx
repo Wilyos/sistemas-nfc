@@ -86,7 +86,7 @@ const ServicesSection = () => {
           <div className="banner-overlay">
             <h2 >{banners[current].title}</h2>
             <p>{banners[current].description}</p>
-            <Link to="/personalizaTarjeta" className="banner-link">
+            <Link to="/personaliza-tarjeta" className="banner-link">
               PERSONALÍZALAS ¡AQUÍ!
             </Link>
           </div>

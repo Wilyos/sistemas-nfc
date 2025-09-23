@@ -5,6 +5,13 @@ import Lottie from 'lottie-react';
 
 
 const InfoSection = () => {
+  // Agrega la función para el evento de contacto
+  const handleContactPixel = () => {
+    if (window.fbq) {
+      window.fbq('track', 'Contact');
+    }
+  };
+
   return (
     <section className="info-section">
       
@@ -130,7 +137,7 @@ const InfoSection = () => {
               
             </div>
             <div className="benefit-item"> 
-              <a className='button-benefit' href="https://wa.me/573116111687"><Lottie animationData={button} loop={true} className='button-animation' /></a>
+              <a className='button-benefit' href="https://wa.me/573116111687" onClick={handleContactPixel}><Lottie animationData={button} loop={true} className='button-animation' /></a>
             </div>  
           </div>
 

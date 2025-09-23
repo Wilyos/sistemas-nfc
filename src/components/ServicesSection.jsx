@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import './ServicesSection.css';
@@ -27,6 +26,12 @@ const ServicesSection = () => {
     }, 5000);
     return () => clearInterval(interval);
   }, []);
+
+  const handleViewContentPixel = () => {
+    if (window.fbq) {
+      window.fbq('track', 'ViewContent');
+    }
+  };
 
   return (
     <section className="services-section">
@@ -86,7 +91,7 @@ const ServicesSection = () => {
           <div className="banner-overlay">
             <h2 >{banners[current].title}</h2>
             <p>{banners[current].description}</p>
-            <Link to="/personaliza-tarjeta" className="banner-link">
+            <Link to="/personaliza-tarjeta" className="banner-link" onClick={handleViewContentPixel}>
               PERSONALÍZALAS ¡AQUÍ!
             </Link>
           </div>

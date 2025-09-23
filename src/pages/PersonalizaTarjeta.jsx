@@ -65,7 +65,7 @@ function PersonalizaTarjeta() {
       // PDF ANVERSO
       let pdfAnversoBlob = null;
       if (anversoRef.current) {
-        const canvasAnverso = await html2canvas(anversoRef.current, { scale: 3, useCORS: true });
+        const canvasAnverso = await html2canvas(anversoRef.current, { scale: 1.5, useCORS: true }); // Escala reducida
         const imgAnverso = canvasAnverso.toDataURL('image/png');
         const pdfAnverso = new jsPDF({ orientation: 'landscape', unit: 'px', format: [380, 220] });
         pdfAnverso.addImage(imgAnverso, 'PNG', 10, 10, 340, 190);
@@ -75,7 +75,7 @@ function PersonalizaTarjeta() {
       // PDF REVERSO
       let pdfReversoBlob = null;
       if (reversoRef.current) {
-        const canvasReverso = await html2canvas(reversoRef.current, { scale: 3, useCORS: true });
+        const canvasReverso = await html2canvas(reversoRef.current, { scale: 1.5, useCORS: true }); // Escala reducida
         const imgReverso = canvasReverso.toDataURL('image/png');
         const pdfReverso = new jsPDF({ orientation: 'landscape', unit: 'px', format: [380, 220] });
         pdfReverso.addImage(imgReverso, 'PNG', 10, 10, 340, 190);

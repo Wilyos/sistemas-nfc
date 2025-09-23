@@ -31,23 +31,28 @@ app.post('/api/send-pdf', multiUpload, async (req, res) => {
   });
 
   try {
-    const attachments = [];
+    // Enviar correo con anverso
     if (pdfAnversoPath) {
-      attachments.push({ filename: 'tarjeta-anverso.pdf', path: pdfAnversoPath });
+      await transporter.sendMail({
+        from: 'correos.sistemaslit@gmail.com',
+        to: 'correos.sistemasnfc@gmail.com',
+        subject: 'Cotización NFC - Anverso',
+        text: mensaje || `Cotización de ${nombre || empresa} (Anverso)`,
+        attachments: [{ filename: 'tarjeta-anverso.pdf', path: pdfAnversoPath }]
+      });
+      fs.unlinkSync(pdfAnversoPath);
     }
+    // Enviar correo con reverso
     if (pdfReversoPath) {
-      attachments.push({ filename: 'tarjeta-reverso.pdf', path: pdfReversoPath });
+      await transporter.sendMail({
+        from: 'correos.sistemaslit@gmail.com',
+        to: 'correos.sistemasnfc@gmail.com',
+        subject: 'Cotización NFC - Reverso',
+        text: mensaje || `Cotización de ${nombre || empresa} (Reverso)`,
+        attachments: [{ filename: 'tarjeta-reverso.pdf', path: pdfReversoPath }]
+      });
+      fs.unlinkSync(pdfReversoPath);
     }
-    await transporter.sendMail({
-      from: 'correos.sistemaslit@gmail.com',
-      to: 'correos.sistemasnfc@gmail.com',
-      subject: 'Cotización NFC',
-      text: mensaje || `Cotización de ${nombre || empresa}`,
-      attachments
-    });
-    // Eliminar archivos temporales
-    if (pdfAnversoPath) fs.unlinkSync(pdfAnversoPath);
-    if (pdfReversoPath) fs.unlinkSync(pdfReversoPath);
     res.json({ success: true });
   } catch (err) {
     res.status(500).json({ success: false, error: err.message });

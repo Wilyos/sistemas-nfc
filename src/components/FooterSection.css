@@ -461,9 +461,18 @@
 }
 
 @media (max-width: 480px) {
+
+  .footer-section{
+    background: #000 !important;
+    
+  }
   .footer-title {
     font-size: 1.1rem;
+    color: var(--color-white);
   }
+  .highlight-text {
+    color: var(--color-white);
+  } 
   
   .contact-card {
     padding: 1.2rem;

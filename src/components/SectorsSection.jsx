@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import banner1 from '../assets/banners/bannerinfo.png';
-import banner2 from '../assets/banners/bannerinfo2.png';
-import banner3 from '../assets/banners/sad.png';
-import banner4 from '../assets/banners/sad3.png';
+import banner1 from '../assets/profiles/Screenshot_1.png';
+import banner2 from '../assets/profiles/Screenshot_2.png';
+import banner3 from '../assets/profiles/Screenshot_4.png';
+import banner4 from '../assets/profiles/Screenshot_5.png';
 import './SectorsSection.css';
 
 const banners = [

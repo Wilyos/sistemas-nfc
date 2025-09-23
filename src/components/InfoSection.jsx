@@ -15,7 +15,8 @@ const InfoSection = () => {
         <div className="info-content">
           {/* Lista de beneficios lado izquierdo */}
           
-          <div className="benefits-list">
+          {/* Lista de beneficios: versión resumida en móviles */}
+          <div className="benefits-list benefits-list-desktop">
             <div className="header-badge">
               <span>CON NUESTRAS SOLUCIONES NFC,</span>
               <span className="highlight">TU INFORMACIÓN VA MÁS LEJOS.</span>
@@ -30,7 +31,6 @@ const InfoSection = () => {
                 </p>
               </div>
             </div>
-
             <div className="benefit-item">
               <div className="benefit-icon">
                 <LuDot className='icon-info' />
@@ -41,7 +41,6 @@ const InfoSection = () => {
                 </p>
               </div>
             </div>
-
             <div className="benefit-item">
               <div className="benefit-icon">
                 <LuDot className='icon-info' />
@@ -52,7 +51,6 @@ const InfoSection = () => {
                 </p>
               </div>
             </div>
-
             <div className="benefit-item">
               <div className="benefit-icon">
                 <LuDot className='icon-info' />
@@ -63,7 +61,6 @@ const InfoSection = () => {
                 </p>
               </div>
             </div>
-
             <div className="benefit-item">
               <div className="benefit-icon">
                 <LuDot className='icon-info' />
@@ -74,9 +71,70 @@ const InfoSection = () => {
                 </p>
               </div>
             </div>
-            <a href=""><Lottie animationData={button} loop={true} className='button-animation' /></a>
-            
+            <a href="https://wa.me/573116111687"><Lottie animationData={button} loop={true} className='button-animation' /></a>
           </div>
+          <div className="benefits-list benefits-list-mobile">
+           <div className="header-badge">
+              <span>CON NUESTRAS SOLUCIONES NFC,</span>
+              <span className="highlight">TU INFORMACIÓN VA MÁS LEJOS.</span>
+            </div>
+            <div className="benefit-item">
+              <div className="benefit-icon">
+                <LuDot className='icon-info' />
+              </div>
+              <div className="benefit-text">
+                <p>
+                  Compartir tu información profesional al instante.
+                </p>
+              </div>
+            </div>
+            <div className="benefit-item">
+              <div className="benefit-icon">
+                <LuDot className='icon-info' />
+              </div>
+              <div className="benefit-text">
+                <p>
+                  Conectar con tus clientes desde con un solo toque.
+                </p>
+              </div>
+            </div>
+            <div className="benefit-item">
+              <div className="benefit-icon">
+                <LuDot className='icon-info' />
+              </div>
+              <div className="benefit-text">
+                <p>
+                  Mostrar tu ubicación, enlaces y contenido multimedia.
+                </p>
+              </div>
+            </div>
+            <div className="benefit-item">
+              <div className="benefit-icon">
+                <LuDot className='icon-info' />
+              </div>
+              <div className="benefit-text">
+                <p>
+                  Personalizar tu tarjeta o solución NFC con la identidad visual de tu marca.
+                </p>
+              </div>
+            </div>
+            <div className="benefit-item">
+              <div className="benefit-icon">
+                <LuDot className='icon-info' />
+              </div>
+              <div className="benefit-text">
+                <p>
+                  Actualizar tu información en tiempo real.
+                </p>
+              </div>
+              
+            </div>
+            <div className="benefit-item"> 
+              <a className='button-benefit' href="https://wa.me/573116111687"><Lottie animationData={button} loop={true} className='button-animation' /></a>
+            </div>  
+          </div>
+
+          
 
           {/* Imagen del teléfono lado derecho */}
           <div className="phone-showcase">

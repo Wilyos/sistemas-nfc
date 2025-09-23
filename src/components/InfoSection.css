@@ -1,4 +1,45 @@
 @import '../styles/colors.css';
+/* Mostrar solo la versión resumida de benefits-list en móviles */
+/* Por defecto, solo mostrar la lista larga en desktop */
+.benefits-list-mobile { display: none !important; }
+.benefits-list-desktop { display: flex !important; }
+
+@media (max-width: 480px) {
+  .info-section {
+    background: #000 !important;
+  }
+  .info-content .benefits-list-desktop {
+    display: none !important;
+  }
+  .info-content .benefits-list-mobile {
+    display: flex !important;
+    flex-direction: column;
+    width: 100%;
+    gap: 0.7rem;
+    align-items: flex-start;
+    padding: 1rem 1rem;
+    background: black;
+    
+  
+  }
+  .header-badge{
+    color: white !important;
+  }
+ .benefit-item .benefit-text p  {
+  color: white !important;
+ }
+ .benefit-icon{
+  color: white !important;
+ }
+
+ .button-benefit{
+  justify-content: center;
+  display: flex;
+}
+  .benefits-list-mobile { display: block; flex-direction: column; width: 100%; gap: 0.7rem; align-items: center; }
+  .benefits-list-desktop { display: none; }
+}
+
 
 @media (max-width: 480px) {
   .info-content {
@@ -302,7 +343,7 @@
     width: 100%;
   }
   .benefits-list {
-    padding: 0 0.2rem;
+    padding: 0;
   }
   .benefits-list a{
     justify-content: center;
@@ -310,7 +351,7 @@
   }
   .benefit-item {
     text-align: left;
-    gap: 0.7rem;
+    font-size: 2rem;
   }
   .benefit-icon {
     width: 24px;
@@ -403,6 +444,13 @@
     gap: 0.7rem;
     align-items: center;
   }
+  .benefit-item {
+    font-size: 1.15rem;
+  }
+  .benefit-text p {
+    font-size: 1.12rem;
+    line-height: 1.35;
+  }
   .button-animation {
     display: flex;
     margin: 1.5rem auto 0 auto;
@@ -418,10 +466,6 @@
   .icon-info {
     width: 16px;
     height: 16px;
-  }
-  .benefit-text p {
-    font-size: 0.85rem;
-    line-height: 1.3;
   }
   .phone-container {
     max-width: 100vw;

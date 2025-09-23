@@ -11,9 +11,16 @@ const upload = multer({ dest: '/tmp/' }); // Vercel solo permite /tmp para archi
 app.use(cors());
 app.use(express.json());
 
-app.post('/api/send-pdf', upload.single('pdf'), async (req, res) => {
+// Multer para dos archivos: pdfAnverso y pdfReverso
+const multiUpload = upload.fields([
+  { name: 'pdfAnverso', maxCount: 1 },
+  { name: 'pdfReverso', maxCount: 1 }
+]);
+
+app.post('/api/send-pdf', multiUpload, async (req, res) => {
   const { nombre, empresa, mensaje } = req.body;
-  const pdfPath = req.file.path;
+  const pdfAnversoPath = req.files?.pdfAnverso?.[0]?.path;
+  const pdfReversoPath = req.files?.pdfReverso?.[0]?.path;
 
   const transporter = nodemailer.createTransport({
     service: 'gmail',
@@ -24,19 +31,23 @@ app.post('/api/send-pdf', upload.single('pdf'), async (req, res) => {
   });
 
   try {
+    const attachments = [];
+    if (pdfAnversoPath) {
+      attachments.push({ filename: 'tarjeta-anverso.pdf', path: pdfAnversoPath });
+    }
+    if (pdfReversoPath) {
+      attachments.push({ filename: 'tarjeta-reverso.pdf', path: pdfReversoPath });
+    }
     await transporter.sendMail({
       from: 'correos.sistemaslit@gmail.com',
       to: 'correos.sistemasnfc@gmail.com',
       subject: 'Cotización NFC',
       text: mensaje || `Cotización de ${nombre || empresa}`,
-      attachments: [
-        {
-          filename: 'tarjeta-personalizada.pdf',
-          path: pdfPath
-        }
-      ]
+      attachments
     });
-    fs.unlinkSync(pdfPath);
+    // Eliminar archivos temporales
+    if (pdfAnversoPath) fs.unlinkSync(pdfAnversoPath);
+    if (pdfReversoPath) fs.unlinkSync(pdfReversoPath);
     res.json({ success: true });
   } catch (err) {
     res.status(500).json({ success: false, error: err.message });

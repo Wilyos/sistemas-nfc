@@ -62,47 +62,48 @@ function PersonalizaTarjeta() {
     setEnviando(true);
     setMensajeEnvio('');
     try {
-      const pdf = new jsPDF({ orientation: 'landscape', unit: 'px', format: [380, 220] });
-
-      // Captura anverso
+      // PDF ANVERSO
+      let pdfAnversoBlob = null;
       if (anversoRef.current) {
         const canvasAnverso = await html2canvas(anversoRef.current, { scale: 3, useCORS: true });
         const imgAnverso = canvasAnverso.toDataURL('image/png');
-        pdf.addImage(imgAnverso, 'PNG', 10, 10, 340, 190);
+        const pdfAnverso = new jsPDF({ orientation: 'landscape', unit: 'px', format: [380, 220] });
+        pdfAnverso.addImage(imgAnverso, 'PNG', 10, 10, 340, 190);
+        pdfAnversoBlob = pdfAnverso.output('blob');
       }
 
-      // Captura reverso
-      pdf.addPage([380, 220], 'landscape');
+      // PDF REVERSO
+      let pdfReversoBlob = null;
       if (reversoRef.current) {
         const canvasReverso = await html2canvas(reversoRef.current, { scale: 3, useCORS: true });
         const imgReverso = canvasReverso.toDataURL('image/png');
-        pdf.addImage(imgReverso, 'PNG', 10, 10, 340, 190);
+        const pdfReverso = new jsPDF({ orientation: 'landscape', unit: 'px', format: [380, 220] });
+        pdfReverso.addImage(imgReverso, 'PNG', 10, 10, 340, 190);
+        pdfReversoBlob = pdfReverso.output('blob');
       }
 
-      // Generar PDF como blob
-      const pdfBlob = pdf.output('blob');
-
-      // Enviar PDF y datos al backend
+      // Enviar ambos PDFs al backend
       const formData = new FormData();
-      formData.append('pdf', pdfBlob, 'tarjeta-personalizada.pdf');
+      if (pdfAnversoBlob) formData.append('pdfAnverso', pdfAnversoBlob, 'tarjeta-anverso.pdf');
+      if (pdfReversoBlob) formData.append('pdfReverso', pdfReversoBlob, 'tarjeta-reverso.pdf');
       formData.append('nombre', nombre);
       formData.append('empresa', empresa);
       formData.append('mensaje', 'Cotización generada desde la landing page NFC');
 
-      const response = await fetch('https://TU_DOMINIO.vercel.app/api/send-pdf', {
+      const response = await fetch('https://backend-nfcsis.vercel.app/api/send-pdf', {
         method: 'POST',
         body: formData
       });
 
       const result = await response.json();
       if (result.success) {
-        setMensajeEnvio('¡PDF enviado correctamente!');
+        setMensajeEnvio('¡PDFs enviados correctamente!');
       } else {
-        setMensajeEnvio('Error al enviar el PDF. Intenta nuevamente.');
+        setMensajeEnvio('Error al enviar los PDFs. Intenta nuevamente.');
       }
     } catch (err) {
       console.error(err);
-      setMensajeEnvio('Error al enviar el PDF. Intenta nuevamente.');
+      setMensajeEnvio('Error al enviar los PDFs. Intenta nuevamente.');
     }
     setEnviando(false);
   };

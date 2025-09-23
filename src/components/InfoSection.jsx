@@ -137,7 +137,7 @@ const InfoSection = () => {
               
             </div>
             <div className="benefit-item"> 
-              <a className='button-benefit' href="https://wa.me/573116111687" onClick={handleContactPixel}><Lottie animationData={button} loop={true} className='button-animation' /></a>
+              <a className='button-benefit' href="https://wa.me/573116111687" target='_blank' onClick={handleContactPixel}><Lottie animationData={button} loop={true} className='button-animation' /></a>
             </div>  
           </div>
 

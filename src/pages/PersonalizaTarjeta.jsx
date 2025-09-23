@@ -6,6 +6,7 @@ import './PersonalizaTarjeta.css';
 import { FaRegUser } from "react-icons/fa";
 import { FiPhone, FiStar } from "react-icons/fi";
 import { IoMailOutline } from "react-icons/io5";
+import { useNavigate } from 'react-router-dom';
 
 // Organización de plantillas en pares anverso/reverso
 const plantillasPorCategoria = [
@@ -43,10 +44,12 @@ function PersonalizaTarjeta() {
   const [color, setColor] = useState("#000000");
   const [enviando, setEnviando] = useState(false);
   const [mensajeEnvio, setMensajeEnvio] = useState("");
+  const [vistaOriginal, setVistaOriginal] = useState(true);
 
   // --- Referencias ---
   const anversoRef = useRef(null);
   const reversoRef = useRef(null);
+  const navigate = useNavigate();
 
   // --- Selección de plantilla ---
   const handleSeleccionarPlantilla = (anverso, reverso) => {
@@ -113,6 +116,13 @@ function PersonalizaTarjeta() {
         setContacto(prev => ({ ...prev, logoUrl: ev.target.result }));
       };
       reader.readAsDataURL(file);
+    }
+  };
+
+  // Agrega la función para el evento de Meta Pixel
+  const handleViewContentPixel = () => {
+    if (window.fbq) {
+      window.fbq('track', 'ViewContent');
     }
   };
 
@@ -257,10 +267,22 @@ function PersonalizaTarjeta() {
             asesoría de diseño
           </a>
         </div>
+        {/* Botón para volver a la página principal */}
+        {!vistaOriginal && (
+          <button
+            className="btn-volver-original"
+            style={{margin:'16px 0', padding:'8px 20px', borderRadius:8, background:'#10B981', color:'#fff', fontWeight:'bold', border:'none', cursor:'pointer'}}
+            onClick={() => {
+              handleViewContentPixel();
+              navigate('/');
+            }}
+          >
+            Volver a inicio
+          </button>
+        )}
       </div>
     </section>
   );
 };
 
 export default PersonalizaTarjeta;
-       

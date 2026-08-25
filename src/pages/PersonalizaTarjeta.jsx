@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+import { useState, useRef } from 'react';
 import html2canvas from 'html2canvas';
 import jsPDF from 'jspdf';
 import { FaXTwitter, FaFacebookF, FaInstagram } from "react-icons/fa6";
@@ -6,13 +6,13 @@ import './PersonalizaTarjeta.css';
 import { FaRegUser } from "react-icons/fa";
 import { FiPhone, FiStar } from "react-icons/fi";
 import { IoMailOutline } from "react-icons/io5";
+import { useNavigate } from 'react-router-dom';
 
 // Organización de plantillas en pares anverso/reverso
 const plantillasPorCategoria = [
   {
     categoria: 'Corporativas',
     plantillas: [
-      { nombre: 'C1', anverso: '/plantillas/corporativas/C1.png', reverso: '/plantillas/corporativas/C2.png' },
       { nombre: 'Corporativa 1', anverso: '/plantillas/corporativas/c-frente1.png', reverso: '/plantillas/corporativas/corporativa2.png' },
     ]
   },
@@ -34,44 +34,81 @@ const plantillasPorCategoria = [
 ];
 
 function PersonalizaTarjeta() {
-  // Estados principales
-  const [empresa, setEmpresa] = useState('');
-  const [nombre, setNombre] = useState('');
-  const [cargo, setCargo] = useState('');
-  const [contacto, setContacto] = useState({ email: '', telefono: '', direccion: '', twitter: '', facebook: '', instagram: '', nombre: '', cargo: '', qr: '' });
-  const [color, setColor] = useState('#black');
-  // Estados separados para anverso y reverso
-  const [plantillaAnverso, setPlantillaAnverso] = useState('');
-  const [plantillaReverso, setPlantillaReverso] = useState('');
-  const canvasRef = useRef(null);
-  // Refs para las vistas previas
+  // --- Estados ---
+  const [empresa, setEmpresa] = useState("");
+  const [nombre, setNombre] = useState("");
+  const [cargo, setCargo] = useState("");
+  const [contacto, setContacto] = useState({});
+  const [plantillaAnverso, setPlantillaAnverso] = useState(null);
+  const [plantillaReverso, setPlantillaReverso] = useState(null);
+  const [color, setColor] = useState("#000000");
+  const [enviando, setEnviando] = useState(false);
+  const [mensajeEnvio, setMensajeEnvio] = useState("");
+  const [vistaOriginal, setVistaOriginal] = useState(true);
+
+  // --- Referencias ---
   const anversoRef = useRef(null);
   const reversoRef = useRef(null);
-  // Función para exportar ambas vistas previas a PDF
-  const handleExportarPDF = async () => {
-    const pdf = new jsPDF({ orientation: 'landscape', unit: 'px', format: [380, 220] });
-    // Captura anverso
-    if (anversoRef.current) {
-      const canvasAnverso = await html2canvas(anversoRef.current, { scale: 3, useCORS: true });
-      const imgAnverso = canvasAnverso.toDataURL('image/png');
-      pdf.addImage(imgAnverso, 'PNG', 10, 10, 340, 190);
-    }
-    // Nueva página para reverso
-    pdf.addPage([380, 220], 'landscape');
-    if (reversoRef.current) {
-      const canvasReverso = await html2canvas(reversoRef.current, { scale: 3, useCORS: true });
-      const imgReverso = canvasReverso.toDataURL('image/png');
-      pdf.addImage(imgReverso, 'PNG', 10, 10, 340, 190);
-    }
-    pdf.save('tarjeta-personalizada.pdf');
-  };
+  const navigate = useNavigate();
 
-  // Al seleccionar una plantilla de anverso, asigna automáticamente el reverso correspondiente
+  // --- Selección de plantilla ---
   const handleSeleccionarPlantilla = (anverso, reverso) => {
     setPlantillaAnverso(anverso);
     setPlantillaReverso(reverso);
   };
 
+  // --- Exportar a PDF ---
+  const handleExportarPDF = async () => {
+    setEnviando(true);
+    setMensajeEnvio('');
+    try {
+      // PDF ANVERSO
+      let pdfAnversoBlob = null;
+      if (anversoRef.current) {
+        const canvasAnverso = await html2canvas(anversoRef.current, { scale: 1.5, useCORS: true }); // Escala reducida
+        const imgAnverso = canvasAnverso.toDataURL('image/png');
+        const pdfAnverso = new jsPDF({ orientation: 'landscape', unit: 'px', format: [380, 220] });
+        pdfAnverso.addImage(imgAnverso, 'PNG', 10, 10, 340, 190);
+        pdfAnversoBlob = pdfAnverso.output('blob');
+      }
+
+      // PDF REVERSO
+      let pdfReversoBlob = null;
+      if (reversoRef.current) {
+        const canvasReverso = await html2canvas(reversoRef.current, { scale: 1.5, useCORS: true }); // Escala reducida
+        const imgReverso = canvasReverso.toDataURL('image/png');
+        const pdfReverso = new jsPDF({ orientation: 'landscape', unit: 'px', format: [380, 220] });
+        pdfReverso.addImage(imgReverso, 'PNG', 10, 10, 340, 190);
+        pdfReversoBlob = pdfReverso.output('blob');
+      }
+
+      // Enviar ambos PDFs al backend
+      const formData = new FormData();
+      if (pdfAnversoBlob) formData.append('pdfAnverso', pdfAnversoBlob, 'tarjeta-anverso.pdf');
+      if (pdfReversoBlob) formData.append('pdfReverso', pdfReversoBlob, 'tarjeta-reverso.pdf');
+      formData.append('nombre', nombre);
+      formData.append('empresa', empresa);
+      formData.append('mensaje', 'Cotización generada desde la landing page NFC');
+
+      const response = await fetch('https://backend-nfcsis.vercel.app/api/send-pdf', {
+        method: 'POST',
+        body: formData
+      });
+
+      const result = await response.json();
+      if (result.success) {
+        setMensajeEnvio('¡PDFs enviados correctamente!');
+      } else {
+        setMensajeEnvio('Error al enviar los PDFs. Intenta nuevamente.');
+      }
+    } catch (err) {
+      console.error(err);
+      setMensajeEnvio('Error al enviar los PDFs. Intenta nuevamente.');
+    }
+    setEnviando(false);
+  };
+
+  // --- Subir logo ---
   const handleLogoChange = (e) => {
     const file = e.target.files[0];
     if (file) {
@@ -80,6 +117,13 @@ function PersonalizaTarjeta() {
         setContacto(prev => ({ ...prev, logoUrl: ev.target.result }));
       };
       reader.readAsDataURL(file);
+    }
+  };
+
+  // Agrega la función para el evento de Meta Pixel
+  const handleViewContentPixel = () => {
+    if (window.fbq) {
+      window.fbq('track', 'ViewContent');
     }
   };
 
@@ -113,7 +157,7 @@ function PersonalizaTarjeta() {
           <div style={{fontWeight:'bold', color:'var(--color-white)', marginBottom:8}}>Fondos prediseñados</div>
           {plantillasPorCategoria.map(cat => (
             <div key={cat.categoria} style={{marginBottom:12}}>
-              <div style={{fontWeight:'bold', fontSize:15, marginBottom:4}}>{cat.categoria}</div>
+              <div style={{fontWeight:'bold', fontSize:15, marginBottom:4, color:'var(--color-white)'}}>{cat.categoria}</div>
               <div style={{display:'flex', gap:8}}>
                 {cat.plantillas.map((p,i) => (
                   <img
@@ -205,10 +249,13 @@ function PersonalizaTarjeta() {
         </div>
       </div>
       <div className="personaliza-actions">
-        <button className="personaliza-enviar-btn" onClick={handleExportarPDF} type="button">
-          Guardar PDF
+        <button className="personaliza-enviar-btn" onClick={handleExportarPDF} type="button" disabled={enviando}>
+          {enviando ? 'Enviando PDF...' : 'Guardar y enviar PDF'}
         </button>
-      <div className="asesoria-diseno-container">
+        {mensajeEnvio && (
+          <div style={{marginTop:10, color: mensajeEnvio.includes('Error') ? 'red' : 'green', fontWeight:'bold'}}>{mensajeEnvio}</div>
+        )}
+        <div className="asesoria-diseno-container">
           <span className="asesoria-diseno-label">
             ¿buscas algo más personalizado?
           </span>
@@ -221,10 +268,22 @@ function PersonalizaTarjeta() {
             asesoría de diseño
           </a>
         </div>
+        {/* Botón para volver a la página principal */}
+        {!vistaOriginal && (
+          <button
+            className="btn-volver-original"
+            style={{margin:'16px 0', padding:'8px 20px', borderRadius:8, background:'#10B981', color:'#fff', fontWeight:'bold', border:'none', cursor:'pointer'}}
+            onClick={() => {
+              handleViewContentPixel();
+              navigate('/');
+            }}
+          >
+            Volver a inicio
+          </button>
+        )}
       </div>
     </section>
   );
-}
+};
 
 export default PersonalizaTarjeta;
-       

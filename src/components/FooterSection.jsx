@@ -47,10 +47,7 @@ const FooterSection = () => {
   return (
     <footer className="footer-section">
       {/* Fondo de la sección */}
-      <div className="footer-background">
-        <img src={bgSeven} alt="Background" className="bg-image" />
-        <div className="footer-overlay"></div>
-      </div>
+      
 
       {/* Contenedor principal */}
       <div className="footer-container">

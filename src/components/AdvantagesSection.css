@@ -1,13 +1,145 @@
 @import '../styles/colors.css';
 
-.advantages-section {
-  position: relative;
-  min-height: 100vh;
+@media (max-width: 900px) {
+  .advantages-cards-carousel {
+    width: 100vw;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    margin: 0 auto 1.5rem auto;
+    gap: 0.7rem;
+  }
+  .advantages-cards-carousel .advantage-card {
+    width: 90vw;
+    max-width: 98vw;
+    min-width: 0;
+    margin: 0 auto;
+    font-size: 1.2rem;
+    box-sizing: border-box;
+    padding: 1.2rem 0.7rem;
+  }
+  .advantages-carousel-dots {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5rem;
+    margin-top: 0.7rem;
+  }
+  .advantages-carousel-dot {
+    width: 18px;
+    height: 4px;
+    border-radius: 2px;
+    background: rgba(0,0,0,0.18);
+    transition: background 0.2s, width 0.2s;
+    cursor: pointer;
+    opacity: 0.6;
+    border: none;
+  }
+  .advantages-carousel-dot.active {
+    background: #222;
+    width: 32px;
+    opacity: 1;
+  }
+}
+
+
+/* Fila de tarjetas de ventajas */
+.advantages-cards-row {
   display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.section-title{
+  color: var(--color-white) !important;
+  font-family: "Roboto", sans-serif;
+  font-size: 1.8rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+  margin: 0;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+}
+/* Información extra debajo del carousel */
+.advantages-info-extra {
+  background: #f7f7f7;
+  width: 100vw;
+  max-width: 100vw;
+  padding: 2.5rem 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  left: 50%;
+  right: 50%;
+  transform: translateX(-50%);
+}
+
+
+
+.info-extra-title {
+  text-align: center;
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 1.2rem;
+  color: #181818;
+  letter-spacing: 0px;
+}
+.info-extra-text {
+  text-align: justify;
+  font-size: 1rem;
+  color: #222;
+  margin-bottom: 0.7rem;
+  max-width: 900px;
+}
+.info-extra-icons-row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1.1rem;
+  margin-top: 1.5rem;
+}
+.info-extra-icon {
+
+  display: flex;
+  text-align: justify;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
-  overflow: hidden;
-  padding: 6rem 0;
+  min-width: 90px;
+  min-height: 90px;
+  transition: box-shadow 0.18s, transform 0.18s;
+}
+.info-extra-icon img {
+  width: 90px;
+  height: 90px  ;
+  margin-bottom: 0.4rem;
+}
+.info-extra-icon span {
+  font-size: 1rem;
+  color: #181818;
+  font-weight: 500;
+  text-align: center;
+}
+.info-extra-icon:hover {
+  box-shadow: 0 12px 32px rgba(0,0,0,0.22);
+  transform: translateY(-6px) scale(1.06);
+}
+
+
+.advantages-section {
+  position: relative;
+  min-height: 50vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  background: black;
+  padding: 2.5rem 0 1.5rem 0;
   box-sizing: border-box;
 }
 
@@ -39,17 +171,27 @@
 
 /* Contenedor principal */
 .advantages-container {
-  max-width: 1200px;
+  width: 100%;
   margin: 0 auto;
-  padding: 0 2rem;
   position: relative;
   z-index: 10;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-image: url('/assets/banners/hero2.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
 }
 
 /* Título de la sección */
 .section-title {
   text-align: center;
-  margin-bottom: 3rem;
+  margin-bottom: 2.2rem;
+  font-size: 2rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+  color: #181818;
 }
 
 .section-title h2 {
@@ -66,38 +208,36 @@
 .carousel-container {
   position: relative;
   width: 100%;
-  max-width: 1000px;
-  margin: 0 auto 2rem auto;
-  overflow: hidden;
-  border-radius: 20px;
+  max-width: 1200px;
+  margin: 0 auto 1.5rem auto;
+  overflow: visible;
+  display: flex;
+  justify-content: center;
 }
 
 .carousel-track {
   display: flex;
-  transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: transform 0.7s cubic-bezier(0.4, 0, 0.2, 1);
   width: 100%;
-  /* Eliminamos el gap completamente */
+  justify-content: center;
 }
 
 .advantage-card {
-  flex: 0 0 33.333%; /* Exactamente 1/3 sin ajustes */
-  background: rgba(255, 255, 255, 0.98);
-  backdrop-filter: blur(15px);
-  border-radius: 20px;
-  padding: 1.5rem 1rem;
-  margin: 0; /* Sin margin */
-  /* Usamos padding horizontal para crear separación visual interna */
-  padding-left: 1.5rem;
-  padding-right: 1.5rem;
-  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
-  border: 1px solid rgba(255, 255, 255, 0.4);
-  min-height: 280px;
-  /* Agregamos un pseudo-elemento para crear separación visual */
-  position: relative;
-  /* Propiedades de layout */
+  background: #fff;
+  border-radius: 24px;
+  padding: 2.2rem 1.5rem 1.5rem 1.5rem;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.18), 0 2px 12px rgba(0,0,0,0.10);
+  border: 2px solid #222;
+  min-width: 250px;
+  max-width: 250px;
+  min-height: 250px;
   display: flex;
   flex-direction: column;
   text-align: left;
+  align-items: flex-start;
+  justify-content: flex-start;
+  position: relative;
+  transition: box-shadow 0.2s, transform 0.2s;
 }
 
 .advantage-card:not(:last-child)::after {
@@ -116,15 +256,15 @@
   display: flex;
   align-items: flex-start;
   gap: 1rem;
-  margin-bottom: 1.5rem;
+  margin-bottom: 1.2rem;
 }
 
 .advantage-number {
-  color: #038C3E !important;
-  font-family: "Syncopate", sans-serif;
-  font-size: 2.5rem;
-  font-weight: 800;
-  text-shadow: 0 2px 10px rgba(3, 140, 62, 0.3);
+  color: #181818;
+  font-family: 'Roboto', sans-serif;
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-right: 0;
   line-height: 1;
   flex-shrink: 0;
 }
@@ -138,9 +278,9 @@
 }
 
 .advantage-title {
-  color: #038C3E !important;
-  font-family: "Syncopate", sans-serif;
-  font-size: 1.1rem;
+  color: #181818;
+  font-family: 'Roboto', sans-serif;
+  font-size: 0.9rem;
   font-weight: 700;
   margin: 0;
   letter-spacing: 0.5px;
@@ -149,8 +289,8 @@
 
 .advantage-subtitle {
   color: #038C3E !important;
-  font-family: "Syncopate", sans-serif;
-  font-size: 1.1rem;
+  font-family: "Roboto", sans-serif;
+  font-size: 0.9rem;
   font-weight: 700;
   margin: 0;
   letter-spacing: 0.5px;
@@ -158,46 +298,18 @@
 }
 
 .advantage-description {
-  color: var(--color-black);
-  font-size: 1.2rem;
+  color: #222;
+  font-size: 0.7rem;
   line-height: 1.5;
   margin: 0;
   flex: 1;
+  margin-top: 0.7rem;
 }
 
-.advantage-number {
-  color: var(--color-green-medium);
-  font-family: "Syncopate", sans-serif;
-  font-size: 2.5rem;
-  font-weight: 800;
-  margin-bottom: 1.2rem;
-  text-shadow: 0 2px 10px rgba(12, 242, 93, 0.3);
-  line-height: 1;
-}
-
-.advantage-content h3 {
-  color: var(--color-green-medium);
-  font-family: "Syncopate", sans-serif;
-  font-size: 1.1rem;
-  font-weight: 700;
-  margin: 0 0 0.2rem 0;
-  letter-spacing: 0.5px;
-  line-height: 1.2;
-}
-
-.advantage-content h4 {
-  color: var(--color-green-medium);
-  font-family: "Syncopate", sans-serif;
-  font-size: 1.1rem;
-  font-weight: 700;
-  margin: 0 0 1.5rem 0;
-  letter-spacing: 0.5px;
-  line-height: 1.2;
-}
 
 .advantage-description {
   color: var(--color-black);
-  font-size: 1.2rem;
+  font-size: 0.8rem;
   line-height: 1.5;
   margin: 0;
   flex: 1;
@@ -511,28 +623,18 @@
 /* Responsive */
 @media (max-width: 1024px) {
   .advantages-container {
-    padding: 0 1.5rem;
+    padding: 0 1rem;
   }
-  
-  .section-title h2 {
-    font-size: 1.6rem;
+  .carousel-container {
+    max-width: 98vw;
   }
-  
-  .logo-text {
-    font-size: 2.2rem;
+  .advantage-card {
+    min-width: 270px;
+    max-width: 270px;
+    padding: 1.2rem 0.7rem;
   }
-  
-  .demo-content {
-    gap: 2rem;
-  }
-  
-  .demo-bottom {
-    flex-direction: column;
-    gap: 2rem;
-  }
-  
-  .description-blocks p {
-    font-size: 1rem;
+  .section-title {
+    font-size: 1.2rem;
   }
 }
 
@@ -683,8 +785,28 @@
   .advantage-content h4 {
     font-size: 0.8rem;
   }
+  .advantage-header{
+    font-size: 1.2rem;
+  }
   .advantage-description {
-    font-size: 0.8rem;
+    font-size: 0.9rem;
+    line-height: 1.4;
+  }
+
+  .advantages-info-extra {
+   background: black;
+   color: white;
+  }
+
+  .info-extra-title{
+    color: white;
+    font-size: 1.8rem;
+    line-height: 1.2;
+  }
+
+  .info-extra-text{
+    color: white;
+    font-size: 1rem;
     line-height: 1.4;
   }
   .logo-images {

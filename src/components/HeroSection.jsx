@@ -1,6 +1,7 @@
 
 import React, { useState, useEffect } from 'react';
 import './HeroSection.css';
+import { FaMapMarkerAlt } from 'react-icons/fa';
 import hero1 from '../assets/banners/hero1.png';
 import hero2 from '../assets/banners/hero2.png';
 import hero3 from '../assets/banners/hero3.png';
@@ -59,17 +60,31 @@ const HeroSection = () => {
               <>
                 {/* Título superior */}
                 <div className={`hero-slide-top-title${anim ? ' anim' : ''}`}>{slide.topTitle}</div>
+                
                 {/* Contenido inferior izquierdo */}
                 <div className={`hero-slide-bottom-content${anim ? ' anim' : ''}`}>
                   <div className="hero-slide-main-text">{slide.mainText}</div>
                   {slide.mainText2 && <div className="hero-slide-main-text2">{slide.mainText2}</div>}
+                </div>
+
+                {/* Contenido inferior derecho: Botón CTA y Puntos Físicos */}
+                <div className={`hero-slide-right-content${anim ? ' anim' : ''}`}>
                   <a
                     href="https://wa.me/573116111687"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="hero-cta-button"
+                    className="hero-cta-btn-white"
                   >
                     {slide.cta}
+                  </a>
+                  <a
+                    href="https://maps.app.goo.gl/ZdkkYM4CkgKZbmxi6"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="hero-points-badge"
+                  >
+                    <FaMapMarkerAlt className="hero-points-icon" />
+                    <span>5 puntos físicos</span>
                   </a>
                 </div>
               </>

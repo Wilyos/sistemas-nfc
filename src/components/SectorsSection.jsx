@@ -1,19 +1,24 @@
 import React, { useState, useEffect } from 'react';
+import banner5Webp from '../assets/profiles/Screenshot_6.webp';
+import banner5Png  from '../assets/profiles/Screenshot_6.png';
 import banner1Webp from '../assets/profiles/Screenshot_1.webp';
-import banner1Png from '../assets/profiles/Screenshot_1.png';
 import banner2Webp from '../assets/profiles/Screenshot_2.webp';
-import banner2Png from '../assets/profiles/Screenshot_2.png';
-import banner3Webp from '../assets/profiles/Screenshot_4.webp';
-import banner3Png from '../assets/profiles/Screenshot_4.png';
+import banner2Png  from '../assets/profiles/Screenshot_2.png';
 import banner4Webp from '../assets/profiles/Screenshot_5.webp';
-import banner4Png from '../assets/profiles/Screenshot_5.png';
+import banner6Webp from '../assets/profiles/Screenshot_7.webp';
+import banner6Png  from '../assets/profiles/Screenshot_7.png';
+import banner7Webp from '../assets/profiles/Screenshot_8.webp';
+import banner7Png  from '../assets/profiles/Screenshot_8.png';
 import './SectorsSection.css';
 
+// Screenshot_6 va primero; Screenshot_4 eliminada definitivamente.
 const banners = [
-  { webp: banner1Webp, png: banner1Png, alt: 'banner1' },
-  { webp: banner2Webp, png: banner2Png, alt: 'banner2' },
-  { webp: banner3Webp, png: banner3Png, alt: 'banner3' },
-  { webp: banner4Webp, png: banner4Png, alt: 'banner4' },
+  { webp: banner5Webp, png: banner5Png,  alt: 'Perfil digital 5' },
+  { webp: banner1Webp, png: banner1Webp, alt: 'Perfil digital 1' },
+  { webp: banner2Webp, png: banner2Png,  alt: 'Perfil digital 2' },
+  { webp: banner4Webp, png: banner4Webp, alt: 'Perfil digital 4' },
+  { webp: banner6Webp, png: banner6Png,  alt: 'Perfil digital 6' },
+  { webp: banner7Webp, png: banner7Png,  alt: 'Perfil digital 7' },
 ];
 
 const SectorsSection = () => {
@@ -92,11 +97,14 @@ const SectorsSection = () => {
             </div>
           </div>
         ) : (
+          // Desktop: Screenshot_6 primero (banner-top), Screenshot_4 eliminada
           <div className="sector-banners">
-            <picture><source srcSet={banner1Webp} type="image/webp" /><img src={banner1Png} alt="banner1" className="sector-banner banner-top" loading="lazy" decoding="async" /></picture>
-            <picture><source srcSet={banner2Webp} type="image/webp" /><img src={banner2Png} alt="banner2" className="sector-banner banner-mid" loading="lazy" decoding="async" /></picture>
-            <picture><source srcSet={banner3Webp} type="image/webp" /><img src={banner3Png} alt="banner3" className="sector-banner banner-bot" loading="lazy" decoding="async" /></picture>
-            <picture><source srcSet={banner4Webp} type="image/webp" /><img src={banner4Png} alt="banner4" className="sector-banner banner-front" loading="lazy" decoding="async" /></picture>
+            <picture><source srcSet={banner5Webp} type="image/webp" /><img src={banner5Png}  alt="Perfil digital 5" className="sector-banner banner-top"    loading="lazy" decoding="async" /></picture>
+            <picture><source srcSet={banner1Webp} type="image/webp" /><img src={banner1Webp} alt="Perfil digital 1" className="sector-banner banner-mid"    loading="lazy" decoding="async" /></picture>
+            <picture><source srcSet={banner2Webp} type="image/webp" /><img src={banner2Png}  alt="Perfil digital 2" className="sector-banner banner-bot"    loading="lazy" decoding="async" /></picture>
+            <picture><source srcSet={banner4Webp} type="image/webp" /><img src={banner4Webp} alt="Perfil digital 4" className="sector-banner banner-front"  loading="lazy" decoding="async" /></picture>
+            <picture><source srcSet={banner6Webp} type="image/webp" /><img src={banner6Png}  alt="Perfil digital 6" className="sector-banner banner-extra1" loading="lazy" decoding="async" /></picture>
+            <picture><source srcSet={banner7Webp} type="image/webp" /><img src={banner7Png}  alt="Perfil digital 7" className="sector-banner banner-extra2" loading="lazy" decoding="async" /></picture>
           </div>
         )}
       </div>

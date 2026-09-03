@@ -1,15 +1,19 @@
 import React, { useState, useEffect } from 'react';
-import banner1 from '../assets/profiles/Screenshot_1.png';
-import banner2 from '../assets/profiles/Screenshot_2.png';
-import banner3 from '../assets/profiles/Screenshot_4.png';
-import banner4 from '../assets/profiles/Screenshot_5.png';
+import banner1Webp from '../assets/profiles/Screenshot_1.webp';
+import banner1Png from '../assets/profiles/Screenshot_1.png';
+import banner2Webp from '../assets/profiles/Screenshot_2.webp';
+import banner2Png from '../assets/profiles/Screenshot_2.png';
+import banner3Webp from '../assets/profiles/Screenshot_4.webp';
+import banner3Png from '../assets/profiles/Screenshot_4.png';
+import banner4Webp from '../assets/profiles/Screenshot_5.webp';
+import banner4Png from '../assets/profiles/Screenshot_5.png';
 import './SectorsSection.css';
 
 const banners = [
-  { src: banner1, alt: 'banner1' },
-  { src: banner2, alt: 'banner2' },
-  { src: banner3, alt: 'banner3' },
-  { src: banner4, alt: 'banner4' },
+  { webp: banner1Webp, png: banner1Png, alt: 'banner1' },
+  { webp: banner2Webp, png: banner2Png, alt: 'banner2' },
+  { webp: banner3Webp, png: banner3Png, alt: 'banner3' },
+  { webp: banner4Webp, png: banner4Png, alt: 'banner4' },
 ];
 
 const SectorsSection = () => {
@@ -45,26 +49,38 @@ const SectorsSection = () => {
         {isMobile ? (
           <div className="sector-banners-carousel">
             {/* Imagen previa (peek) */}
-            <img
-              src={banners[(current - 1 + banners.length) % banners.length].src}
-              alt={banners[(current - 1 + banners.length) % banners.length].alt}
-              className="sector-banner-carousel-img prev"
-              style={{ left: 0 }}
-            />
+            <picture>
+              <source srcSet={banners[(current - 1 + banners.length) % banners.length].webp} type="image/webp" />
+              <img
+                src={banners[(current - 1 + banners.length) % banners.length].png}
+                alt={banners[(current - 1 + banners.length) % banners.length].alt}
+                className="sector-banner-carousel-img prev"
+                style={{ left: 0 }}
+                loading="lazy" decoding="async"
+              />
+            </picture>
             {/* Imagen actual */}
-            <img
-              src={banners[current].src}
-              alt={banners[current].alt}
-              className="sector-banner-carousel-img"
-              style={{ zIndex: 2 }}
-            />
+            <picture>
+              <source srcSet={banners[current].webp} type="image/webp" />
+              <img
+                src={banners[current].png}
+                alt={banners[current].alt}
+                className="sector-banner-carousel-img"
+                style={{ zIndex: 2 }}
+                loading="lazy" decoding="async"
+              />
+            </picture>
             {/* Imagen siguiente (peek) */}
-            <img
-              src={banners[(current + 1) % banners.length].src}
-              alt={banners[(current + 1) % banners.length].alt}
-              className="sector-banner-carousel-img next"
-              style={{ right: 0 }}
-            />
+            <picture>
+              <source srcSet={banners[(current + 1) % banners.length].webp} type="image/webp" />
+              <img
+                src={banners[(current + 1) % banners.length].png}
+                alt={banners[(current + 1) % banners.length].alt}
+                className="sector-banner-carousel-img next"
+                style={{ right: 0 }}
+                loading="lazy" decoding="async"
+              />
+            </picture>
             <div className="sector-carousel-dots">
               {banners.map((_, idx) => (
                 <span
@@ -77,10 +93,10 @@ const SectorsSection = () => {
           </div>
         ) : (
           <div className="sector-banners">
-            <img src={banner1} alt="banner1" className="sector-banner banner-top" />
-            <img src={banner2} alt="banner2" className="sector-banner banner-mid" />
-            <img src={banner3} alt="banner3" className="sector-banner banner-bot" />
-            <img src={banner4} alt="banner4" className="sector-banner banner-front" />
+            <picture><source srcSet={banner1Webp} type="image/webp" /><img src={banner1Png} alt="banner1" className="sector-banner banner-top" loading="lazy" decoding="async" /></picture>
+            <picture><source srcSet={banner2Webp} type="image/webp" /><img src={banner2Png} alt="banner2" className="sector-banner banner-mid" loading="lazy" decoding="async" /></picture>
+            <picture><source srcSet={banner3Webp} type="image/webp" /><img src={banner3Png} alt="banner3" className="sector-banner banner-bot" loading="lazy" decoding="async" /></picture>
+            <picture><source srcSet={banner4Webp} type="image/webp" /><img src={banner4Png} alt="banner4" className="sector-banner banner-front" loading="lazy" decoding="async" /></picture>
           </div>
         )}
       </div>

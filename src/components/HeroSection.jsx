@@ -2,27 +2,33 @@
 import React, { useState, useEffect } from 'react';
 import './HeroSection.css';
 import { FaMapMarkerAlt } from 'react-icons/fa';
-import hero1 from '../assets/banners/hero1.png';
-import hero2 from '../assets/banners/hero2.png';
-import hero3 from '../assets/banners/hero3.png';
+import hero1Webp from '../assets/banners/hero1.webp';
+import hero1Png from '../assets/banners/hero1.png';
+import hero2Webp from '../assets/banners/hero2.webp';
+import hero2Png from '../assets/banners/hero2.png';
+import hero3Webp from '../assets/banners/hero3.webp';
+import hero3Png from '../assets/banners/hero3.png';
 
 const slides = [
   {
-    image: hero3,
+    webp: hero3Webp,
+    png: hero3Png,
     topTitle: 'BIENVENIDO A LA NUEVA ERA DE LA CONEXIÓN',
     mainText: 'DISEÑAMOS MÁS QUE IMPRESIONES,',
     mainText2: 'CREAMOS CONEXIONES',
     cta: '¡COMPRA AHORA!'
   },
   {
-    image: hero2,
+    webp: hero2Webp,
+    png: hero2Png,
     topTitle: 'BIENVENIDO A LA NUEVA ERA DE LA CONEXIÓN',
     mainText: 'TRANSFORMA EL PRIMER CONTACTO',
     mainText2: 'EN UNA EXPERIENCIA MEMORABLE',
     cta: '¡COMPRA AHORA!'
   },
   {
-    image: hero1,
+    webp: hero1Webp,
+    png: hero1Png,
     topTitle: 'BIENVENIDO A LA NUEVA ERA DE LA CONEXIÓN',
     mainText: 'COMO UN VERDADERO PROFESIONAL',
     mainText2: '',
@@ -54,8 +60,20 @@ const HeroSection = () => {
           <div
             key={idx}
             className={`hero-slide${idx === current ? ' active' : ''}`}
-            style={{ backgroundImage: `url(${slide.image})` }}
           >
+            {/* Imagen de fondo con soporte WebP + fallback PNG */}
+            <picture>
+              <source srcSet={slide.webp} type="image/webp" />
+              <img
+                src={slide.png}
+                alt={slide.topTitle}
+                className="hero-slide-bg-img"
+                loading={idx === 0 ? 'eager' : 'lazy'}
+                fetchPriority={idx === 0 ? 'high' : 'low'}
+                decoding={idx === 0 ? 'sync' : 'async'}
+              />
+            </picture>
+
             {idx === current && (
               <>
                 {/* Título superior */}

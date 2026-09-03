@@ -1,6 +1,7 @@
 import React from 'react';
 import './FooterSection.css';
-import bgSeven from '../assets/background/bg-seven.jpg';
+import bgSevenWebp from '../assets/background/bg-seven.webp';
+import bgSevenPng from '../assets/background/bg-seven.jpg';
 import { FaWhatsapp } from "react-icons/fa6";
 import { FaMapMarkerAlt } from "react-icons/fa";
 import { MdMail } from "react-icons/md";
